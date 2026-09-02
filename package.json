@@ -4,6 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "lint:check": "npx @biomejs/biome lint ./src",
+        "lint:fix": "npx @biomejs/biome lint --write ./src",
         "dev": "tsx watch src/server.ts",
         "build": "tsc",
         "start": "node dist/src/server.js",
@@ -26,6 +28,7 @@
         "pg": "^8.22.0"
     },
     "devDependencies": {
+        "@biomejs/biome": "2.5.11",
         "@types/cookie-parser": "^1.4.10",
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.6",

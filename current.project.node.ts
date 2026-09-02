@@ -14,7 +14,7 @@ npm i -D -E @biomejs/biome
 npx @biomejs/biome init
 
 
-now to enable them add vscode exention
+add vscode exention
 
 ------->>> special if need <<--------
 
@@ -30,16 +30,12 @@ npm run format:check
 npm run format:fix  
 
 
-npx @biomejs/biome lint ./src ./public
 
 add them on scripts on packge.jsonfile :
+script :
 
-"lint:check" : "npx @biomejs/biome lint ./src"
-
-npx @biomejs/biome lint --write ./src
-
-script : 
-"lint:fix" : "npx @biomejs/biome lint --write ./src"
+"lint:check": "npx @biomejs/biome lint ./src",
+"lint:fix": "npx @biomejs/biome lint --write ./src",
 
 scripte run : 
 npm run lint:check
