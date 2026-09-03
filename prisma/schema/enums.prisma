@@ -1,8 +1,7 @@
 enum Role {
-  SUPER_ADMIN
   ADMIN
-  DOCTOR
-  PATIENT
+  INVESTOR
+  SHARK
 }
 
 enum UserStatus {

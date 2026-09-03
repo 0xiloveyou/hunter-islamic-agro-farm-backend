@@ -3,7 +3,7 @@
 npx prisma format
 npx prisma migrate dev
 npx prisma generate
-
+npx prisma migrate reset
 
 ---
 
