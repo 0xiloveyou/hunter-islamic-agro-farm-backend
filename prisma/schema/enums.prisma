@@ -1,17 +1,54 @@
-enum Role {
-  ADMIN
-  INVESTOR
-  SHARK
-}
-
 enum UserStatus {
   ACTIVE
   BLOCKED
   DELETED
 }
 
-enum Gender {
-  MALE
-  FEMALE
+
+enum Role {
+  ADMIN
+  SHARK
+  INVESTOR
+}
+
+enum InvestmentStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  MOBILE_MONEY
+  CARD
   OTHER
 }
+
+enum PaymentStatus {
+  PENDING
+  VERIFIED
+  FAILED
+  REFUNDED
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
+
+enum FundStatus {
+  ACTIVE
+  CLOSED
+}
+
