@@ -185,7 +185,7 @@ const loginUser = async (payload: ILoginUserPayload) => {
 
 export const AuthService = {
     registerUser,
-    // loginUser,
+    loginUser,
     // getMe,
     // refreshToken
 }
