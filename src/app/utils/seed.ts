@@ -116,3 +116,59 @@ export const seedTesterInvestor = async () => {
 		});
 	}
 };
+
+//create tester Shark
+export const seedTesterShark = async () => {
+	try {
+		const isTesterSharkExist = await prisma.user.findUnique({
+			where: {
+				email: config.tester_shark_email,
+			},
+		});
+
+		if (isTesterSharkExist) {
+			console.log("Tester Shark Already Exists!");
+			return;
+		}
+
+		const name = config.tester_shark_name;
+		const email = config.tester_shark_email;
+		const password = config.tester_shark_password;
+
+		if (!name || !email || !password) {
+			throw new AppError(
+				httpStatus.INTERNAL_SERVER_ERROR,
+				"Tester shark Name , Email, Password Missing In Env File!!!",
+			);
+		}
+
+		const hashedPassword = await bcrypt.hash(
+			password,
+			Number(config.bcrypt_salt_rounds),
+		);
+
+		const testerShark = await prisma.user.create({
+			data: {
+				name,
+				email,
+				password: hashedPassword,
+				role: Role.SHARK,
+				needPasswordChange: false,
+				emailVerified: true,
+				profile: {
+					create: { name, email },
+				},
+			},
+		});
+
+		console.log("Tester shark Created : ", testerShark);
+	} catch (error) {
+		console.log("Error Seeding Tester Shark : ", error);
+
+		await prisma.user.delete({
+			where: {
+				email: config.tester_shark_email,
+			},
+		});
+	}
+};

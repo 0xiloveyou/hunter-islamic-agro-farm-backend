@@ -22,4 +22,7 @@ export default {
 	tester_investor_name: process.env.TESTER_INVESTOR_NAME!,
 	tester_investor_email: process.env.TESTER_INVESTOR_EMAIL!,
 	tester_investor_password: process.env.TESTER_INVESTOR_PASSWORD!,
+	tester_shark_name: process.env.TESTER_SHARK_NAME!,
+	tester_shark_email: process.env.TESTER_SHARK_EMAIL!,
+	tester_shark_password: process.env.TESTER_SHARK_PASSWORD!,
 };
