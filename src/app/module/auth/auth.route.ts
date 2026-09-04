@@ -7,6 +7,8 @@ const router = Router()
 
 router.post('/register', AuthController.registerUser)
 router.post('/login', AuthController.loginUser)
+router.post("/google", AuthController.googleLogin);
+
 // router.get(
 //     '/me',
 //     auth(Role.ADMIN, Role.DOCTOR, Role.PATIENT, Role.SUPER_ADMIN),
