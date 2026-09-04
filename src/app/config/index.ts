@@ -15,5 +15,8 @@ export default {
 	jwt_refresh_secret: process.env.JWT_REFRESH_SECRET!,
 	jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN!,
 	jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN!,
-    
+	google_client_id: process.env.GOOGLE_CLIENT_ID!,
+	tester_admin_name: process.env.TESTER_ADMIN_NAME!,
+	tester_admin_email: process.env.TESTER_ADMIN_EMAIL!,
+	tester_admin_password: process.env.TESTER_ADMIN_PASSWORD!,
 };
