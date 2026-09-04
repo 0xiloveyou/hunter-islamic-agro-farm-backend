@@ -60,3 +60,59 @@ export const seedTesterAdmin = async () => {
 		});
 	}
 };
+
+//create tester investor
+export const seedTesterInvestor = async () => {
+	try {
+		const isTesterInvestorExist = await prisma.user.findUnique({
+			where: {
+				email: config.tester_investor_email,
+			},
+		});
+
+		if (isTesterInvestorExist) {
+			console.log("Tester Investor Already Exists!");
+			return;
+		}
+
+		const name = config.tester_investor_name;
+		const email = config.tester_investor_email;
+		const password = config.tester_investor_password;
+
+		if (!name || !email || !password) {
+			throw new AppError(
+				httpStatus.INTERNAL_SERVER_ERROR,
+				"Tester investor Name , Email, Password Missing In Env File!!!",
+			);
+		}
+
+		const hashedPassword = await bcrypt.hash(
+			password,
+			Number(config.bcrypt_salt_rounds),
+		);
+
+		const testerInvestor = await prisma.user.create({
+			data: {
+				name,
+				email,
+				password: hashedPassword,
+				role: Role.INVESTOR,
+				needPasswordChange: false,
+				emailVerified: true,
+				profile: {
+					create: { name, email },
+				},
+			},
+		});
+
+		console.log("Tester Investor Created : ", testerInvestor);
+	} catch (error) {
+		console.log("Error Seeding Tester investor : ", error);
+
+		await prisma.user.delete({
+			where: {
+				email: config.tester_investor_email,
+			},
+		});
+	}
+};

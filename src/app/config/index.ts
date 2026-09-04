@@ -19,4 +19,7 @@ export default {
 	tester_admin_name: process.env.TESTER_ADMIN_NAME!,
 	tester_admin_email: process.env.TESTER_ADMIN_EMAIL!,
 	tester_admin_password: process.env.TESTER_ADMIN_PASSWORD!,
+	tester_investor_name: process.env.TESTER_INVESTOR_NAME!,
+	tester_investor_email: process.env.TESTER_INVESTOR_EMAIL!,
+	tester_investor_password: process.env.TESTER_INVESTOR_PASSWORD!,
 };
