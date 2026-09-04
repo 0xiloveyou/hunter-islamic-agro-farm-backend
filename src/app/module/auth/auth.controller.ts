@@ -67,6 +67,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 
 
 
+
 // const getMe = catchAsync(async (req: Request, res: Response) => {
 //     const user = req.user as unknown as IRequestUser
 
