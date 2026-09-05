@@ -11,6 +11,11 @@ enum Role {
   INVESTOR
 }
 
+enum AuthProvider {
+  GOOGLE
+  CREDENTIAL
+}
+
 enum InvestmentStatus {
   PENDING
   ACTIVE

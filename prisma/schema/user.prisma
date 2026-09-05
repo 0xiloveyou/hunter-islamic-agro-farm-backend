@@ -3,10 +3,12 @@ model User {
   name               String
   email              String
   password           String
-  emailVerified      Boolean    @default(false)
+  googleId           String?      @unique
+  authProvider       AuthProvider @default(CREDENTIAL)
+  emailVerified      Boolean      @default(false)
+  status             UserStatus   @default(ACTIVE)
+  needPasswordChange Boolean      @default(false)
   role               Role       @default(INVESTOR)
-  status             UserStatus @default(ACTIVE)
-  needPasswordChange Boolean    @default(false)
   isDeleted          Boolean    @default(false)
   deletedAt          DateTime?
   createdAt          DateTime   @default(now())

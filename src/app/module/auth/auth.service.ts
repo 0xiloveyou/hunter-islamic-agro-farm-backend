@@ -5,10 +5,14 @@ import config from '../../config'
 import { prisma } from '../../lib/prisma'
 import { jwtUtils } from '../../utils/jwt'
 import {
+    IGoogleLoginPayload,
     ILoginUserPayload,
     IRegisterUserPayload,
 } from './auth.interface'
-
+import { TokenPayload } from 'google-auth-library'
+import { googleClient } from '../../lib/googleAuth'
+import { AppError } from '../../utils/AppError'
+import httpStatus from "http-status";
 
 const registerUser = async (payload: IRegisterUserPayload) => {
     const { name, password} = payload
@@ -153,21 +157,19 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 		);
 	}
 
-	const ifPatientExistWithGoogleAuth = await prisma.user.findUnique({
+	const ifUserExistWithGoogleAuth = await prisma.user.findUnique({
 		where: {
 			email: googleIdTokenPayload.email,
-			role: Role.PATIENT,
-			googleId: googleIdTokenPayload.sub,
+			googleId: googleIdTokenPayload.sub, // here .sub contains unique google id of user
 		},
 	});
 
-	let user = ifPatientExistWithGoogleAuth;
+	let user = ifUserExistWithGoogleAuth;
 
-	if (!ifPatientExistWithGoogleAuth) {
-		const ifPatientExistWithCredentials = await prisma.user.findUnique({
+	if (!ifUserExistWithGoogleAuth) {
+		const ifUserExistWithCredentials = await prisma.user.findUnique({
 			where: {
 				email: googleIdTokenPayload.email,
-				role: Role.PATIENT,
 				authProvider: AuthProvider.CREDENTIAL,
 			},
 		});
