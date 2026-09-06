@@ -339,11 +339,10 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 //     }
 // }
 
-
-
 export const AuthService = {
-    registerUser,
-    loginUser,
-    // getMe,
-    // refreshToken
-}
+	registerUser,
+	loginUser,
+	// getMe,
+	// refreshToken,
+	googleLogin,
+};
