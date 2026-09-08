@@ -92,7 +92,7 @@ const loginUser = async (payload: ILoginUserPayload) => {
         throw new Error('User is deleted')
     }
 
-    const isPasswordMatched = await bcrypt.compare(password, user.password)
+    const isPasswordMatched = await bcrypt.compare(password, user.password as string)
 
     if (!isPasswordMatched) {
         throw new Error('Invalid credentials')
@@ -174,25 +174,25 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 			},
 		});
 
-		if (ifPatientExistWithCredentials) {
-			if (!ifPatientExistWithCredentials.emailVerified) {
+		if (ifUserExistWithCredentials) {
+			if (!ifUserExistWithCredentials.emailVerified) {
 				throw new AppError(httpStatus.FORBIDDEN, "Email Not Verified");
 			}
 
-			if (ifPatientExistWithCredentials.status === UserStatus.BLOCKED) {
+			if (ifUserExistWithCredentials.status === UserStatus.BLOCKED) {
 				throw new AppError(httpStatus.FORBIDDEN, "User Is Blocked");
 			}
 
 			if (
-				ifPatientExistWithCredentials.isDeleted ||
-				ifPatientExistWithCredentials.status === UserStatus.DELETED
+				ifUserExistWithCredentials.isDeleted ||
+				ifUserExistWithCredentials.status === UserStatus.DELETED
 			) {
 				throw new AppError(httpStatus.FORBIDDEN, "User Is Deleted");
 			}
 
 			user = await prisma.user.update({
 				where: {
-					id: ifPatientExistWithCredentials.id,
+					id: ifUserExistWithCredentials.id,
 				},
 
 				data: {
@@ -205,11 +205,11 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 				data: {
 					name: googleIdTokenPayload.name,
 					email: googleIdTokenPayload.email,
-					role: Role.PATIENT,
+					role: Role.INVESTOR,
 					googleId: googleIdTokenPayload.sub,
 					authProvider: AuthProvider.GOOGLE,
 					emailVerified: true,
-					patient: {
+					profile: {
 						create: {
 							name: googleIdTokenPayload.name,
 							email: googleIdTokenPayload.email,
@@ -217,25 +217,25 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 					},
 				},
 			});
-			const tempatePath = path.join(
-				process.cwd(),
-				"src/app/templates/patient-welcome-email.ejs",
-			);
+			// const tempatePath = path.join(
+			// 	process.cwd(),
+			// 	"src/app/templates/patient-welcome-email.ejs",
+			// );
 
-			const templateData = {
-				name: user.name,
-			};
+			// const templateData = {
+			// 	name: user.name,
+			// };
 
-			const html = await ejs.renderFile(tempatePath, templateData);
+			// const html = await ejs.renderFile(tempatePath, templateData);
 
-			await transporter.sendMail({
-				from: config.email_sender,
-				to: user.email,
-				subject: "Welcome To PH Healthcare System",
-				// text : `Your OTP is ${otp}`
-				// html: `<h1>Your OTP is ${otp}</h1>`
-				html,
-			});
+			// await transporter.sendMail({
+			// 	from: config.email_sender,
+			// 	to: user.email,
+			// 	subject: "Welcome To PH Healthcare System",
+			// 	// text : `Your OTP is ${otp}`
+			// 	// html: `<h1>Your OTP is ${otp}</h1>`
+			// 	html,
+			// });
 		}
 	}
 
