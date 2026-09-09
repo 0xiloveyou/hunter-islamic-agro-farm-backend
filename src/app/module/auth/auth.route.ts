@@ -24,7 +24,7 @@ router.get(
     auth(Role.ADMIN, Role.INVESTOR, Role.SHARK),
     AuthController.getMe,
 )
-// router.post('/refresh-token', AuthController.refreshToken)
+router.post('/refresh-token', AuthController.refreshToken)
 
 
 export const AuthRoutes = router
