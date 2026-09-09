@@ -3,6 +3,7 @@ import httpStatus from 'http-status'
 import { catchAsync } from '../../utils/catchAsync'
 import { sendResponse } from '../../utils/sendResponse'
 import { AuthService } from './auth.service'
+import { IRequestUser } from './auth.interface'
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
     const payload = req.body
@@ -96,21 +97,21 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
 });
 
 
-// const getMe = catchAsync(async (req: Request, res: Response) => {
-//     const user = req.user as unknown as IRequestUser
+const getMe = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user as unknown as IRequestUser
 
-//     if (!user) {
-//         throw new Error('User information is missing in the request')
-//     }
+    if (!user) {
+        throw new Error('User information is missing in the request')
+    }
 
-//     const result = await AuthService.getMe(user)
-//     sendResponse(res, {
-//         statusCode: httpStatus.OK,
-//         success: true,
-//         message: 'User profile fetched successfully',
-//         data: result,
-//     })
-// })
+    const result = await AuthService.getMe(user)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'User profile fetched successfully',
+        data: result,
+    })
+})
 
 // const refreshToken = catchAsync(async (req: Request, res: Response) => {
 //     if (!req.cookies.refreshToken) {
@@ -148,6 +149,6 @@ export const AuthController = {
     registerUser,
     loginUser,
     googleLogin,
-    // getMe,
+    getMe,
     // refreshToken,
 }

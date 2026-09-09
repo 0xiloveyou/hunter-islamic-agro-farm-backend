@@ -8,6 +8,7 @@ import {
     IGoogleLoginPayload,
     ILoginUserPayload,
     IRegisterUserPayload,
+	IRequestUser,
 } from './auth.interface'
 import { TokenPayload } from 'google-auth-library'
 import { googleClient } from '../../lib/googleAuth'
@@ -290,25 +291,25 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 };
 
 
-// const getMe = async (user: IRequestUser) => {
-//     const isUserExists = await prisma.user.findUnique({
-//         where: {
-//             id: user.userId,
-//         },
-//         include: {
-//             patient: true,
-//         },
-//         omit: {
-//             password: true,
-//         },
-//     })
+const getMe = async (user: IRequestUser) => {
+    const isUserExists = await prisma.user.findUnique({
+        where: {
+            id: user.userId,
+        },
+        include: {
+            profile: true,
+        },
+        omit: {
+            password: true,
+        },
+    })
 
-//     if (!isUserExists) {
-//         throw new Error('User not found')
-//     }
+    if (!isUserExists) {
+        throw new Error('User not found')
+    }
 
-//     return isUserExists
-// }
+    return isUserExists
+}
 
 // const refreshToken = async (token: string) => {
 //     const verifiedRefreshToken = jwtUtils.verifyToken(token, config.jwt_refresh_secret)
@@ -355,7 +356,7 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 export const AuthService = {
 	registerUser,
 	loginUser,
-	// getMe,
+	getMe,
 	// refreshToken,
 	googleLogin,
 };
