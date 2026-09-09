@@ -73,54 +73,67 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 }
 
 const loginUser = async (payload: ILoginUserPayload) => {
-    const { password } = payload
-    const email = payload.email.trim().toLowerCase()
+	// throw new Error("Test Error");
 
-    const user = await prisma.user.findUnique({
-        where: { email },
-    })
+	const { password } = payload;
+	const email = payload.email.trim().toLowerCase();
 
-    if (!user) {
-        throw new Error('User not found')
-    }
+	const user = await prisma.user.findUnique({
+		where: { email },
+	});
 
-    if (user.status === UserStatus.BLOCKED) {
-        throw new Error('User is blocked')
-    }
+	if (!user) {
+		// throw new Error("User not found");
+		throw new AppError(httpStatus.NOT_FOUND, "User Not Found");
+	}
 
-    if (user.isDeleted || user.status === UserStatus.DELETED) {
-        throw new Error('User is deleted')
-    }
+	if (user.status === UserStatus.BLOCKED) {
+		throw new AppError(httpStatus.FORBIDDEN, "User is blocked");
+	}
 
-    const isPasswordMatched = await bcrypt.compare(password, user.password as string)
+	if (user.isDeleted || user.status === UserStatus.DELETED) {
+		throw new AppError(httpStatus.FORBIDDEN, "User is deleted");
+	}
 
-    if (!isPasswordMatched) {
-        throw new Error('Invalid credentials')
-    }
+	if (user.password === null && user.googleId !== null) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"User Already Has Account Registered With Google. Try To Login With Google.",
+		);
+	}
 
-    const jwtPayload = {
-        userId: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role
-    }
+	const isPasswordMatched = await bcrypt.compare(
+		password,
+		user.password as string,
+	);
 
-    const accessToken = jwtUtils.createToken(
-        jwtPayload,
-        config.jwt_access_secret,
-        config.jwt_access_expires_in as SignOptions
-    );
+	if (!isPasswordMatched) {
+		throw new AppError(httpStatus.UNAUTHORIZED, "Invalid credentials");
+	}
 
-    const refreshToken = jwtUtils.createToken(
-        jwtPayload,
-        config.jwt_refresh_secret,
-        config.jwt_refresh_expires_in as SignOptions
-    );
+	const jwtPayload = {
+		userId: user.id,
+		name: user.name,
+		email: user.email,
+		role: user.role,
+	};
 
-    return {
-        accessToken,
-        refreshToken
-    }
+	const accessToken = jwtUtils.createToken(
+		jwtPayload,
+		config.jwt_access_secret,
+		config.jwt_access_expires_in as SignOptions,
+	);
+
+	const refreshToken = jwtUtils.createToken(
+		jwtPayload,
+		config.jwt_refresh_secret,
+		config.jwt_refresh_expires_in as SignOptions,
+	);
+
+	return {
+		accessToken,
+		refreshToken,
+	};
 }
 
 const googleLogin = async (payload: IGoogleLoginPayload) => {
