@@ -2,10 +2,16 @@ import { Router } from 'express'
 import { Role } from '../../../generated/prisma/enums'
 import { auth } from '../../middleware/checkAuth'
 import { AuthController } from './auth.controller'
+import { validateRequest } from '../../middleware/validateRequest'
+import { UserValidation } from './auth.validation'
 
 const router = Router()
 
-router.post('/register', AuthController.registerUser)
+router.post(
+	"/register",
+	validateRequest(UserValidation.UserRegistrationZodSchema),
+	AuthController.registerUser,
+);
 router.post('/login', AuthController.loginUser)
 router.post("/google", AuthController.googleLogin);
 

@@ -147,6 +147,7 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
 export const AuthController = {
     registerUser,
     loginUser,
+    googleLogin,
     // getMe,
     // refreshToken,
 }
