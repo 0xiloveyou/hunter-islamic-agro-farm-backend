@@ -26,14 +26,23 @@ const UserRegistrationZodSchema = z.object({
 		.optional(), // Making profile optional if needed
 });
 
+const LoginZodSchema = z.object({
+	email: z.email(),
+	password: z
+		.string()
+		.min(8, "Password Must Minimum 8 Characters Long.")
+		.regex(/[a-z]/, "Password must contain atleast 1 Lowercase Letter")
+		.regex(/[A-Z]/, "Password must contain atleast 1 Uppercase Letter")
 
-
+		.regex(/[0-9]/, "Password must contain atleast 1 Number")
+		.regex(/[^A-Za-z0-9]/, "Password must contain atleast 1 Special Character"),
+});
 
 
 export const UserValidation = {
 	UserRegistrationZodSchema,
 	// PatientEmailVerifyZodSchema,
-	// LoginZodSchema,
+	LoginZodSchema,
 	// ForgotPasswordZodSchema,
 	// ResetPasswordZodSchema,
 };

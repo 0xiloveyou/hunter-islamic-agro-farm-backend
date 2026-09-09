@@ -12,7 +12,11 @@ router.post(
 	validateRequest(UserValidation.UserRegistrationZodSchema),
 	AuthController.registerUser,
 );
-router.post('/login', AuthController.loginUser)
+router.post(
+	"/login",
+	validateRequest(UserValidation.LoginZodSchema),
+	AuthController.loginUser,
+);
 router.post("/google", AuthController.googleLogin);
 
 // router.get(
