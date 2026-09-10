@@ -22,6 +22,7 @@ import httpStatus from "http-status";
 import { redisClient } from '../../lib/redis';
 import { transporter } from '../../lib/nodemailer';
 import path from 'path';
+import { profile } from 'console';
 
 const registerUser = async (payload: IRegisterUserPayload) => {
 	const { name, password, profile: ProfileData } = payload;
@@ -39,38 +40,38 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 		);
 	}
 
-	// const hashedPassword = await bcrypt.hash(password, 8);
+	const hashedPassword = await bcrypt.hash(password, config.bcrypt_salt_rounds as string);
 
-	// const expirationSeconds = 5 * 60;
+	const expirationSeconds = 5 * 60;
 
-	// const otpKey = `patient-registration-otp:${email}`;
-	// const otpValue = crypto.randomInt(100000, 1000000).toString();
+	const otpKey = `user-registration-otp:${email}`;
+	const otpValue = crypto.randomInt(100000, 1000000).toString();
 
-	// await redisClient.set(otpKey, otpValue, {
-	// 	expiration: {
-	// 		type: "EX",
-	// 		value: expirationSeconds,
-	// 	},
-	// });
+	await redisClient.set(otpKey, otpValue, {
+		expiration: {
+			type: "EX",
+			value: expirationSeconds,
+		},
+	});
 
-	// const patientRegistrationKey = `patient-registration-data:${email}`;
-	// const redisUserDataPayload = {
-	// 	name,
-	// 	email,
-	// 	password: hashedPassword,
-	// 	patient: patientData,
-	// };
+	const userRegistrationKey = `user-registration-data:${email}`;
+	const redisUserDataPayload = {
+		name,
+		email,
+		password: hashedPassword,
+		profile: ProfileData,
+	};
 
-	// await redisClient.set(
-	// 	patientRegistrationKey,
-	// 	JSON.stringify(redisUserDataPayload),
-	// 	{
-	// 		expiration: {
-	// 			type: "EX",
-	// 			value: expirationSeconds,
-	// 		},
-	// 	},
-	// );
+	await redisClient.set(
+		userRegistrationKey,
+		JSON.stringify(redisUserDataPayload),
+		{
+			expiration: {
+				type: "EX",
+				value: expirationSeconds,
+			},
+		},
+	);
 
 	// const tempatePath = path.join(
 	// 	process.cwd(),
