@@ -18,6 +18,11 @@ router.post(
 	AuthController.loginUser,
 );
 router.post("/google", AuthController.googleLogin);
+router.post(
+	"/forgot-password",
+	validateRequest(UserValidation.ForgotPasswordZodSchema),
+	AuthController.forgotPassword,
+);
 
 router.get(
     '/me',

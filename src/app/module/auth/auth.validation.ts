@@ -38,11 +38,14 @@ const LoginZodSchema = z.object({
 		.regex(/[^A-Za-z0-9]/, "Password must contain atleast 1 Special Character"),
 });
 
+export interface IForgotPasswordPayload {
+	email: string;
+}
 
 export const UserValidation = {
 	UserRegistrationZodSchema,
 	// PatientEmailVerifyZodSchema,
 	LoginZodSchema,
-	// ForgotPasswordZodSchema,
+	ForgotPasswordZodSchema,
 	// ResetPasswordZodSchema,
 };

@@ -4,6 +4,9 @@ export interface ILoginUserPayload {
 	email: string;
 	password: string;
 }
+export interface IForgotPasswordPayload {
+	email: string;
+}
 
 export interface IRegisterUserPayload {
 	name: string;

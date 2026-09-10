@@ -47,7 +47,11 @@ npm i
 npm i --save-dev @types/node
 npm i google-auth-library
 npm i zod
-
+npm i redis
+npm i nodemailer
+npm i -D @types/nodemailer
+npm i ejs
+npm i -D @types/ejs
 -----
 
 

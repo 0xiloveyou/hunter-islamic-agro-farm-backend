@@ -5,6 +5,7 @@ import config from '../../config'
 import { prisma } from '../../lib/prisma'
 import { jwtUtils } from '../../utils/jwt'
 import {
+	IForgotPasswordPayload,
     IGoogleLoginPayload,
     ILoginUserPayload,
     IRegisterUserPayload,
@@ -352,6 +353,71 @@ const refreshToken = async (token: string) => {
         refreshToken
     }
 }
+const forgotPassword = async (payload: IForgotPasswordPayload) => {
+	const { email } = payload;
+
+	const isUserExist = await prisma.user.findUnique({
+		where: {
+			email,
+		},
+	});
+
+	if (!isUserExist) {
+		throw new AppError(httpStatus.NOT_FOUND, "User Does Not Exist!");
+	}
+
+	if (isUserExist.status === "BLOCKED") {
+		throw new AppError(httpStatus.FORBIDDEN, "User is Blocked");
+	}
+
+	if (!isUserExist.emailVerified) {
+		throw new AppError(httpStatus.FORBIDDEN, "User Not Verified");
+	}
+
+	if (isUserExist.isDeleted || isUserExist.status === "DELETED") {
+		throw new AppError(httpStatus.FORBIDDEN, "User is Deleted");
+	}
+
+	if (isUserExist.googleId && isUserExist.authProvider === "GOOGLE") {
+		throw new AppError(httpStatus.BAD_REQUEST, "User Has Account With Google");
+	}
+
+	// const otp = crypto.randomInt(100000, 1000000).toString();
+
+	// const key = `forgor-password-otp:${isUserExist.email}`;
+
+	// const expirationSeconds = 5 * 60;
+
+	// await redisClient.set(key, otp, {
+	// 	expiration: {
+	// 		type: "EX",
+	// 		value: expirationSeconds,
+	// 	},
+	// });
+
+	// const tempatePath = path.join(
+	// 	process.cwd(),
+	// 	"src/app/templates/forgot-password.ejs",
+	// );
+
+	// const templateData = {
+	// 	name: isUserExist.name,
+	// 	otp,
+	// 	expirationMinutes: expirationSeconds / 60,
+	// };
+
+	// const html = await ejs.renderFile(tempatePath, templateData);
+
+	// await transporter.sendMail({
+	// 	from: config.email_sender,
+	// 	to: isUserExist.email,
+	// 	subject: "Forgot Password",
+	// 	// text : `Your OTP is ${otp}`
+	// 	// html: `<h1>Your OTP is ${otp}</h1>`
+	// 	html,
+	// });
+};
+
 
 export const AuthService = {
 	registerUser,
@@ -359,4 +425,5 @@ export const AuthService = {
 	getMe,
 	refreshToken,
 	googleLogin,
+	forgotPassword
 };
