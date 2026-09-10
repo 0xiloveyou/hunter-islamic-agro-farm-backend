@@ -18,7 +18,7 @@ const registerUser = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
-const verifyPatientEmail = catchAsync(async (req: Request, res: Response) => {
+const verifyUserEmail = catchAsync(async (req: Request, res: Response) => {
 	const payload = req.body;
 
 	const result = await AuthService.verifyPatientEmail(payload);
