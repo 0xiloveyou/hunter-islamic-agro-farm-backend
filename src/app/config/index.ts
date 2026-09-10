@@ -25,4 +25,8 @@ export default {
 	tester_shark_name: process.env.TESTER_SHARK_NAME!,
 	tester_shark_email: process.env.TESTER_SHARK_EMAIL!,
 	tester_shark_password: process.env.TESTER_SHARK_PASSWORD!,
+	redis_user: process.env.REDIS_USER!,
+	redis_password: process.env.REDIS_PASSWORD!,
+	redis_host: process.env.REDIS_HOST!,
+	redis_port: process.env.REDIS_PORT!,
 };
