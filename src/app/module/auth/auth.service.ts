@@ -23,62 +23,77 @@ import { transporter } from '../../lib/nodemailer';
 import path from 'path';
 
 const registerUser = async (payload: IRegisterUserPayload) => {
-    const { name, password} = payload
-    const email = payload.email.trim().toLowerCase()
+	const { name, password, profile: ProfileData } = payload;
 
-    const isUserExists = await prisma.user.findUnique({
-        where: { email },
-    })
+	const email = payload.email.trim().toLowerCase();
 
-    if (isUserExists) {
-        throw new Error('User with this email already exists')
-    }
+	const isUserExists = await prisma.user.findUnique({
+		where: { email },
+	});
 
-    const hashedPassword = await bcrypt.hash(password, 8)
+	if (isUserExists) {
+		throw new AppError(
+			httpStatus.CONFLICT,
+			"User with this email already exists",
+		);
+	}
 
-    const createdUser = await prisma.user.create({
-        data: {
-            name,
-            email,
-            password: hashedPassword,
-            role: Role.INVESTOR,
-            status: UserStatus.ACTIVE,
-            emailVerified: false,
-            profile: {
-                create: {name,  email },
-            },
-        },
-        omit: { password: true },
-        include: { profile: true },
-    })
+	// const hashedPassword = await bcrypt.hash(password, 8);
 
-    const {profile, ...user } = createdUser
-    const jwtPayload = {
-        userId: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role
-    }
+	// const expirationSeconds = 5 * 60;
 
-    const accessToken = jwtUtils.createToken(
-        jwtPayload,
-        config.jwt_access_secret,
-        config.jwt_access_expires_in as SignOptions
-    );
+	// const otpKey = `patient-registration-otp:${email}`;
+	// const otpValue = crypto.randomInt(100000, 1000000).toString();
 
-    const refreshToken = jwtUtils.createToken(
-        jwtPayload,
-        config.jwt_refresh_secret,
-        config.jwt_refresh_expires_in as SignOptions
-    );
+	// await redisClient.set(otpKey, otpValue, {
+	// 	expiration: {
+	// 		type: "EX",
+	// 		value: expirationSeconds,
+	// 	},
+	// });
 
-    return {
-        user,
-        profile,
-        accessToken,
-        refreshToken
-    }
-}
+	// const patientRegistrationKey = `patient-registration-data:${email}`;
+	// const redisUserDataPayload = {
+	// 	name,
+	// 	email,
+	// 	password: hashedPassword,
+	// 	patient: patientData,
+	// };
+
+	// await redisClient.set(
+	// 	patientRegistrationKey,
+	// 	JSON.stringify(redisUserDataPayload),
+	// 	{
+	// 		expiration: {
+	// 			type: "EX",
+	// 			value: expirationSeconds,
+	// 		},
+	// 	},
+	// );
+
+	// const tempatePath = path.join(
+	// 	process.cwd(),
+	// 	"src/app/templates/registration-user-otp.ejs",
+	// );
+
+	// const templateData = {
+	// 	name,
+	// 	email,
+	// 	otp: otpValue,
+	// 	expirationMinutes: expirationSeconds / 60,
+	// };
+
+	// const html = await ejs.renderFile(tempatePath, templateData);
+
+	// await transporter.sendMail({
+	// 	from: config.email_sender,
+	// 	to: email,
+	// 	subject: "Email Verification",
+	// 	// text : `Your OTP is ${otp}`
+	// 	// html: `<h1>Your OTP is ${otp}</h1>`
+	// 	html,
+	// });
+};
 
 const loginUser = async (payload: ILoginUserPayload) => {
 	// throw new Error("Test Error");

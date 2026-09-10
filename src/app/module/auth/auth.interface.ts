@@ -18,10 +18,13 @@ export interface IResetPasswordPayload {
 }
 
 export interface IRegisterUserPayload {
-	name: string;
-	email: string;
-	password: string;
-}
+		name: string;
+		email: string;
+		password: string;
+		profile: {
+			phone?: string;
+		};
+	}
 
 export interface IRequestUser {
 	userId: string;
