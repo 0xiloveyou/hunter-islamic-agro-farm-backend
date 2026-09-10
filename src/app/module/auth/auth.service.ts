@@ -12,6 +12,7 @@ import {
     ILoginUserPayload,
     IRegisterUserPayload,
 	IRequestUser,
+	IResetPasswordPayload,
 } from './auth.interface'
 import { TokenPayload } from 'google-auth-library'
 import { googleClient } from '../../lib/googleAuth'
@@ -451,7 +452,6 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 	}
 
 	const key = `forgor-password-otp:${isUserExist.email}`;
-
 	const redisOtp = await redisClient.get(key);
 
 	if (!redisOtp) {
@@ -462,19 +462,19 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 		throw new AppError(httpStatus.BAD_REQUEST, "OTP Does Not Match");
 	}
 
-	// const hashedNewPassword = await bcrypt.hash(
-	// 	newPassword,
-	// 	Number(config.bcrypt_salt_rounds),
-	// );
+	const hashedNewPassword = await bcrypt.hash(
+		newPassword,
+		Number(config.bcrypt_salt_rounds),
+	);
 
-	// await prisma.user.update({
-	// 	where: {
-	// 		email: isUserExist.email,
-	// 	},
-	// 	data: {
-	// 		password: hashedNewPassword,
-	// 	},
-	// });
+	await prisma.user.update({
+		where: {
+			email: isUserExist.email,
+		},
+		data: {
+			password: hashedNewPassword,
+		},
+	});
 
 	// await redisClient.del([key]);
 

@@ -23,11 +23,13 @@ router.post(
 	validateRequest(UserValidation.ForgotPasswordZodSchema),
 	AuthController.forgotPassword,
 );
+
 router.post(
 	"/reset-password",
 	validateRequest(UserValidation.ResetPasswordZodSchema),
 	AuthController.resetPassword,
 );
+
 router.get(
     '/me',
     auth(Role.ADMIN, Role.INVESTOR, Role.SHARK),
