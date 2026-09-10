@@ -52,7 +52,9 @@ npm i nodemailer
 npm i -D @types/nodemailer
 npm i ejs
 npm i -D @types/ejs
-
+npm i multer
+npm i -D @types/multer
+npm i cloudinary
 -----
 
 
