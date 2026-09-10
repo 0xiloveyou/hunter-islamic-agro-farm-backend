@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import crypto from "crypto";
 import { JwtPayload, SignOptions } from 'jsonwebtoken'
 import { AuthProvider, Role, UserStatus } from '../../../generated/prisma/enums'
 import config from '../../config'
@@ -15,6 +16,7 @@ import { TokenPayload } from 'google-auth-library'
 import { googleClient } from '../../lib/googleAuth'
 import { AppError } from '../../utils/AppError'
 import httpStatus from "http-status";
+import { redisClient } from '../../lib/redis';
 
 const registerUser = async (payload: IRegisterUserPayload) => {
     const { name, password} = payload
@@ -382,18 +384,16 @@ const forgotPassword = async (payload: IForgotPasswordPayload) => {
 		throw new AppError(httpStatus.BAD_REQUEST, "User Has Account With Google");
 	}
 
-	// const otp = crypto.randomInt(100000, 1000000).toString();
+	const otp = crypto.randomInt(100000, 1000000).toString();
+	const key = `forgor-password-otp:${isUserExist.email}`;
+	const expirationSeconds = 5 * 60;
 
-	// const key = `forgor-password-otp:${isUserExist.email}`;
-
-	// const expirationSeconds = 5 * 60;
-
-	// await redisClient.set(key, otp, {
-	// 	expiration: {
-	// 		type: "EX",
-	// 		value: expirationSeconds,
-	// 	},
-	// });
+	await redisClient.set(key, otp, {
+		expiration: {
+			type: "EX",
+			value: expirationSeconds,
+		},
+	});
 
 	// const tempatePath = path.join(
 	// 	process.cwd(),
