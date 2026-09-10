@@ -160,54 +160,54 @@ const verifyUserEmail = async (payload: IVerifyEmailPayload) => {
 		include: { profile: true },
 	});
 
-	// await redisClient.del(patientRegistrationKey);
+	await redisClient.del(userRegistrationKey);
 
-	// const tempatePath = path.join(
-	// 	process.cwd(),
-	// 	"src/app/templates/patient-welcome-email.ejs",
-	// );
+	const tempatePath = path.join(
+		process.cwd(),
+		"src/app/templates/user-welcome-email.ejs",
+	);
 
-	// const templateData = {
-	// 	name: createdUser.name,
-	// };
+	const templateData = {
+		name: createdUser.name,
+	};
 
-	// const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(tempatePath, templateData);
 
-	// await transporter.sendMail({
-	// 	from: config.email_sender,
-	// 	to: email,
-	// 	subject: "Welcome To PH Healthcare System",
-	// 	// text : `Your OTP is ${otp}`
-	// 	// html: `<h1>Your OTP is ${otp}</h1>`
-	// 	html,
-	// });
+	await transporter.sendMail({
+		from: config.email_sender,
+		to: email,
+		subject: "Welcome To Hunter Islamic Agro Farm",
+		// text : `Your OTP is ${otp}`
+		// html: `<h1>Your OTP is ${otp}</h1>`
+		html,
+	});
 
-	// const { patient, ...user } = createdUser;
-	// const jwtPayload = {
-	// 	userId: user.id,
-	// 	name: user.name,
-	// 	email: user.email,
-	// 	role: user.role,
-	// };
+	const { profile, ...user } = createdUser;
+	const jwtPayload = {
+		userId: user.id,
+		name: user.name,
+		email: user.email,
+		role: user.role,
+	};
 
-	// const accessToken = jwtUtils.createToken(
-	// 	jwtPayload,
-	// 	config.jwt_access_secret,
-	// 	config.jwt_access_expires_in as SignOptions,
-	// );
+	const accessToken = jwtUtils.createToken(
+		jwtPayload,
+		config.jwt_access_secret,
+		config.jwt_access_expires_in as SignOptions,
+	);
 
-	// const refreshToken = jwtUtils.createToken(
-	// 	jwtPayload,
-	// 	config.jwt_refresh_secret,
-	// 	config.jwt_refresh_expires_in as SignOptions,
-	// );
+	const refreshToken = jwtUtils.createToken(
+		jwtPayload,
+		config.jwt_refresh_secret,
+		config.jwt_refresh_expires_in as SignOptions,
+	);
 
-	// return {
-	// 	user,
-	// 	patient,
-	// 	accessToken,
-	// 	refreshToken,
-	// };
+	return {
+		user,
+		profile,
+		accessToken,
+		refreshToken,
+	};
 };
 
 const loginUser = async (payload: ILoginUserPayload) => {

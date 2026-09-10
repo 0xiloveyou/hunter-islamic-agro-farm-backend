@@ -46,7 +46,7 @@ const verifyUserEmail = catchAsync(async (req: Request, res: Response) => {
 			accessToken,
 			refreshToken,
 			user,
-			patient,
+			profile,
 		},
 	});
 });
