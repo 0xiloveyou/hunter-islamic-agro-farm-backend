@@ -13,6 +13,7 @@ import {
     IRegisterUserPayload,
 	IRequestUser,
 	IResetPasswordPayload,
+	IVerifyEmailPayload,
 } from './auth.interface'
 import { TokenPayload } from 'google-auth-library'
 import { googleClient } from '../../lib/googleAuth'
@@ -115,49 +116,49 @@ const verifyUserEmail = async (payload: IVerifyEmailPayload) => {
 		throw new AppError(httpStatus.FORBIDDEN, "User is Deleted");
 	}
 
-	// const otpKey = `patient-registration-otp:${email}`;
+	const otpKey = `user-registration-otp:${email}`;
 
-	// const redisOtp = await redisClient.get(otpKey);
+	const redisOtp = await redisClient.get(otpKey);
 
-	// if (!redisOtp) {
-	// 	throw new AppError(httpStatus.BAD_REQUEST, "Invalid OTP");
-	// }
+	if (!redisOtp) {
+		throw new AppError(httpStatus.BAD_REQUEST, "Invalid OTP");
+	}
 
-	// if (redisOtp !== otp) {
-	// 	throw new AppError(httpStatus.BAD_REQUEST, "OTP Does Not Match");
-	// }
+	if (redisOtp !== otp) {
+		throw new AppError(httpStatus.BAD_REQUEST, "OTP Does Not Match");
+	}
 
-	// await redisClient.del(otpKey);
+	await redisClient.del(otpKey);
 
-	// const patientRegistrationKey = `patient-registration-data:${email}`;
+	const userRegistrationKey = `user-registration-data:${email}`;
 
-	// const redisPatientData = await redisClient.get(patientRegistrationKey);
+	const redisUserData = await redisClient.get(userRegistrationKey);
 
-	// if (!redisPatientData) {
-	// 	throw new AppError(httpStatus.NOT_FOUND, "Patient Doesnt Exist");
-	// }
+	if (!redisUserData) {
+		throw new AppError(httpStatus.NOT_FOUND, "User Doesnt Exist");
+	}
 
-	// const patientPayload: IRegisterPatientPayload = JSON.parse(redisPatientData);
+	const userPayload: IRegisterUserPayload = JSON.parse(redisUserData);
 
-	// const createdUser = await prisma.user.create({
-	// 	data: {
-	// 		name: patientPayload.name,
-	// 		email: patientPayload.email,
-	// 		password: patientPayload.password,
-	// 		role: Role.PATIENT,
-	// 		status: UserStatus.ACTIVE,
-	// 		emailVerified: true,
-	// 		patient: {
-	// 			create: {
-	// 				name: patientPayload.name,
-	// 				email: patientPayload.email,
-	// 				contactNumber: patientPayload?.patient?.contactNumber || "",
-	// 			},
-	// 		},
-	// 	},
-	// 	omit: { password: true },
-	// 	include: { patient: true },
-	// });
+	const createdUser = await prisma.user.create({
+		data: {
+			name: userPayload.name,
+			email: userPayload.email,
+			password: userPayload.password,
+			role: Role.INVESTOR,
+			status: UserStatus.ACTIVE,
+			emailVerified: true,
+			profile: {
+				create: {
+					name: userPayload.name,
+					email: userPayload.email,
+					phone: userPayload?.profile?.phone || "",
+				},
+			},
+		},
+		omit: { password: true },
+		include: { profile: true },
+	});
 
 	// await redisClient.del(patientRegistrationKey);
 
@@ -635,5 +636,6 @@ export const AuthService = {
 	refreshToken,
 	googleLogin,
 	forgotPassword,
-    resetPassword
+	resetPassword,
+	verifyUserEmail,
 };

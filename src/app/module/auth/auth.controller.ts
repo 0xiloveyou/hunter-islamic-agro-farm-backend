@@ -21,9 +21,9 @@ const registerUser = catchAsync(async (req: Request, res: Response) => {
 const verifyUserEmail = catchAsync(async (req: Request, res: Response) => {
 	const payload = req.body;
 
-	const result = await AuthService.verifyPatientEmail(payload);
+	const result = await AuthService.verifyUserEmail(payload);
 
-	const { accessToken, refreshToken, user, patient } = result;
+	const { accessToken, refreshToken, user, profile } = result;
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
@@ -185,11 +185,12 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
 
 
 export const AuthController = {
-    registerUser,
-    loginUser,
-    googleLogin,
-    getMe,
-    refreshToken,
-    forgotPassword,
-    resetPassword
-}
+	registerUser,
+	loginUser,
+	googleLogin,
+	getMe,
+	refreshToken,
+	forgotPassword,
+	resetPassword,
+	verifyUserEmail,
+};

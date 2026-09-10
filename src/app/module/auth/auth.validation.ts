@@ -59,7 +59,7 @@ const ResetPasswordZodSchema = z.object({
 
 export const UserValidation = {
 	UserRegistrationZodSchema,
-	// PatientEmailVerifyZodSchema,
+	UserEmailVerifyZodSchema,
 	LoginZodSchema,
 	ForgotPasswordZodSchema,
 	ResetPasswordZodSchema,
