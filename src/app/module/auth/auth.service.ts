@@ -476,27 +476,27 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 		},
 	});
 
-	// await redisClient.del([key]);
+	await redisClient.del([key]);
 
-	// const tempatePath = path.join(
-	// 	process.cwd(),
-	// 	"src/app/templates/reset-password-success.ejs",
-	// );
+	const tempatePath = path.join(
+		process.cwd(),
+		"src/app/templates/reset-password-success.ejs",
+	);
 
-	// const templateData = {
-	// 	name: isUserExist.name,
-	// };
+	const templateData = {
+		name: isUserExist.name,
+	};
 
-	// const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(tempatePath, templateData);
 
-	// await transporter.sendMail({
-	// 	from: config.email_sender,
-	// 	to: isUserExist.email,
-	// 	subject: "Password Changed",
-	// 	// text : `Your OTP is ${otp}`
-	// 	// html: `<h1>Your Password Is Changed</h1>`
-	// 	html,
-	// });
+	await transporter.sendMail({
+		from: config.email_sender,
+		to: isUserExist.email,
+		subject: "Password Changed",
+		// text : `Your OTP is ${otp}`
+		// html: `<h1>Your Password Is Changed</h1>`
+		html,
+	});
 };
 
 export const AuthService = {
