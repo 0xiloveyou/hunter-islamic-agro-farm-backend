@@ -95,7 +95,7 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 	// });
 };
 
-const verifyPatientEmail = async (payload: IVerifyEmailPayload) => {
+const verifyUserEmail = async (payload: IVerifyEmailPayload) => {
 	const otp = payload.otp;
 	const email = payload.email.trim().toLowerCase();
 

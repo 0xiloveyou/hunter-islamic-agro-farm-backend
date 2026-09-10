@@ -25,7 +25,10 @@ const UserRegistrationZodSchema = z.object({
 		})
 		.optional(), // Making profile optional if needed
 });
-
+const UserEmailVerifyZodSchema = z.object({
+	email: z.email("Not email!!"),
+	otp: z.string().length(6),
+});
 const LoginZodSchema = z.object({
 	email: z.email(),
 	password: z
