@@ -43,11 +43,25 @@ const createSchedule = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
+const getAppointmentRequests = catchAsync(
+	async (req: Request, res: Response) => {
+		const appointments = await AdminService.getAppointmentRequests();
+
+		sendResponse(res, {
+			statusCode: httpStatus.OK,
+			success: true,
+			message: "Appointment requests retrieved successfully",
+			data: appointments,
+		});
+	},
+);
 
 export const AdminController = {
 	getSharkApplications,
     acceptSharkApplication,
 	createSchedule,
+	getAppointmentRequests,
+
 };
 
 

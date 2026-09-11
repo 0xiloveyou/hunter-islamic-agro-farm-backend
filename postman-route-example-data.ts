@@ -123,6 +123,45 @@ No Body
 POST /api/user/book-appointment
 Authorization: Bearer SHARK_ACCESS_TOKEN
 
+{
+  "scheduleId": "",
+  "purpose": "Discuss investment opportunities",
+  "notes": "I would like to discuss the agricultural investment projects."
+}
+
+====================
+GET /api/user/schedules
+
+
+
+=======================
+
+
+
+=====================  
+
+
+=======================
+
+
+
+=====================  
+
+
+=======================
+
+
+
+=====================  
+
+
+=======================
+
+
+
+=====================  
+
+
 
 
 */
@@ -130,7 +169,7 @@ Authorization: Bearer SHARK_ACCESS_TOKEN
 /*
 {
   "email": "asifsifat99@gmail.com",
-  "password": "NewPassword@456"
+  "password": "Password@123"
 }
 
 {

@@ -94,9 +94,30 @@ const createSchedule = async (scheduledAt: string) => {
 
 	return schedule;
 };
+const getAppointmentRequests = async () => {
+	const appointments = await prisma.appointment.findMany({
+		where: {
+			status: "PENDING",
+		},
+		include: {
+			user: {
+				omit: {
+					password: true,
+				},
+			},
+			schedule: true,
+		},
+		orderBy: {
+			createdAt: "asc",
+		},
+	});
 
+	return appointments;
+};
 export const AdminService = {
    getSharkApplications,
    acceptSharkApplication,
    createSchedule,
+   getAppointmentRequests,
+   
 };

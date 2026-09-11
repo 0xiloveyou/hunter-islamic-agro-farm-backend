@@ -25,4 +25,10 @@ router.post(
 	AdminController.createSchedule,
 );
 
+router.get(
+	"/appointment-requests",
+	auth(Role.ADMIN),
+	AdminController.getAppointmentRequests,
+);
+
 export const AdminRoutes = router;
