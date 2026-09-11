@@ -31,4 +31,10 @@ router.get(
 	AdminController.getAppointmentRequests,
 );
 
+router.patch(
+	"/appointment-requests/:appointmentId/approve",
+	auth(Role.ADMIN),
+	AdminController.approveAppointment,
+);
+
 export const AdminRoutes = router;

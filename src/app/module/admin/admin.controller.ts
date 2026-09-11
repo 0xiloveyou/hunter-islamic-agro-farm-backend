@@ -55,13 +55,28 @@ const getAppointmentRequests = catchAsync(
 		});
 	},
 );
+const approveAppointment = catchAsync(async (req: Request, res: Response) => {
+	const { appointmentId } = req.params;
+	const { appointmentUrl } = req.body;
 
+	const appointment = await AdminService.approveAppointment(
+		appointmentId as string,
+		appointmentUrl,
+	);
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Appointment approved successfully",
+		data: appointment,
+	});
+});
 export const AdminController = {
 	getSharkApplications,
     acceptSharkApplication,
 	createSchedule,
 	getAppointmentRequests,
-
+    approveAppointment,
 };
 
 

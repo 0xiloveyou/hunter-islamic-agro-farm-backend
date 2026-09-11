@@ -113,11 +113,47 @@ const getAppointmentRequests = async () => {
 	});
 
 	return appointments;
+};const approveAppointment = async (
+	appointmentId: string,
+	appointmentUrl: string,
+) => {
+	if (!appointmentUrl) {
+		throw new AppError(httpStatus.BAD_REQUEST, "Appointment URL is required");
+	}
+
+	const appointment = await prisma.appointment.findUnique({
+		where: {
+			id: appointmentId,
+		},
+	});
+
+	if (!appointment) {
+		throw new AppError(httpStatus.NOT_FOUND, "Appointment not found");
+	}
+
+	if (appointment.status !== "PENDING") {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"Only pending appointments can be approved",
+		);
+	}
+
+	const updatedAppointment = await prisma.appointment.update({
+		where: {
+			id: appointmentId,
+		},
+		data: {
+			status: "ACCEPTED",
+			appointmentUrl,
+		},
+	});
+
+	return updatedAppointment;
 };
 export const AdminService = {
    getSharkApplications,
    acceptSharkApplication,
    createSchedule,
    getAppointmentRequests,
-   
+   approveAppointment,
 };
