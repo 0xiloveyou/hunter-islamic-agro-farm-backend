@@ -1,0 +1,27 @@
+model Payment {
+  id                String        @id @default(uuid())
+
+  userId            String
+  user              User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  shareId           String
+  share             Share          @relation(fields: [shareId], references: [id], onDelete: Cascade)
+
+  amount            Decimal       @db.Decimal(12, 2)
+  currency          String        @default("USD")
+
+  transactionId     String?       @unique
+  stripeSessionId   String?       @unique
+  stripePaymentIntentId String?   @unique
+
+  status            PaymentStatus @default(PENDING)
+
+  paidAt            DateTime?
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([shareId])
+  @@index([status])
+}

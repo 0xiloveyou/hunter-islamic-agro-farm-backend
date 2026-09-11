@@ -27,6 +27,12 @@ enum AppointmentStatus {
   CANCELLED
   RESCHEDULED
 }
+enum PaymentStatus {
+  PENDING
+  VERIFIED
+  FAILED
+  REFUNDED
+}
 
 enum InvestmentStatus {
   PENDING
@@ -42,12 +48,7 @@ enum PaymentMethod {
   OTHER
 }
 
-enum PaymentStatus {
-  PENDING
-  VERIFIED
-  FAILED
-  REFUNDED
-}
+
 
 enum ProjectStatus {
   PLANNING

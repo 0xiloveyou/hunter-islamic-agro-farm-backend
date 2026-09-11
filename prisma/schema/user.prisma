@@ -18,6 +18,8 @@ model User {
   updatedAt          DateTime   @updatedAt
   profile            Profile?
 appointments       Appointment[]
+shares   Share[]
+payments Payment[]
   @@unique([email])
   @@map("users")
 }
