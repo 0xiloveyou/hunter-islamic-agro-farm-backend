@@ -55,6 +55,9 @@ npm i -D @types/ejs
 npm i multer
 npm i -D @types/multer
 npm i cloudinary
+npm i date-fns
+npm i stripe
+npm i -g @stripe/cli
 -----
 
 

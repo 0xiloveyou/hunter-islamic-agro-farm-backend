@@ -68,9 +68,9 @@ const getSchedules = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 const getMyAppointment = catchAsync(async (req: Request, res: Response) => {
-	const userId = req.user.userId;
+	const userId = req.user?.userId;
 
-	const appointment = await UserServices.getMyAppointment(userId);
+	const appointment = await UserServices.getMyAppointment(userId as string);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
@@ -85,5 +85,5 @@ export const UserController = {
 	bookAppointment,
 	getSchedules,
 	getMyAppointment,
-	
+
 };

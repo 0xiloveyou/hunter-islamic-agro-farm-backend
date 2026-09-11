@@ -148,6 +148,8 @@ patch -> /appointment-requests/:appointmentId/approve
 }
 =======================
 
+GET /api/user/my-appointment
+
 
 
 =====================  
