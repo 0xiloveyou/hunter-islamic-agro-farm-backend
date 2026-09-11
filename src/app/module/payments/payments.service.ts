@@ -1,9 +1,11 @@
 
 import httpStatus from "http-status";
-import { PaymentStatus, Role } from "../../generated/prisma/enums";
-import { prisma } from "../lib/prisma";
-import { stripe } from "../utils/payment";
-import { AppError } from "../errors/AppError";
+import { AppError } from "../../utils/AppError";
+import { prisma } from "../../lib/prisma";
+import { PaymentStatus, Role } from "../../../generated/prisma/enums";
+import { stripe } from "../../lib/stripe";
+
+
 
 const createCheckout = async (
   userId: string,
