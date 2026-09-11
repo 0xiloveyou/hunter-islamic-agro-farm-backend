@@ -1,0 +1,21 @@
+model Share {
+  id               String   @id @default(uuid())
+
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  numberOfShares   Int
+  pricePerShare    Decimal  @db.Decimal(12, 2)
+  totalAmount      Decimal  @db.Decimal(12, 2)
+  currency         String   @default("USD")
+
+  paymentReceiptUrls String[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  payments Payment[]
+
+  @@index([userId])
+  @@index([createdAt])
+}
