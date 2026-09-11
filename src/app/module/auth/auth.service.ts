@@ -40,7 +40,10 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 		);
 	}
 
-	const hashedPassword = await bcrypt.hash(password, config.bcrypt_salt_rounds as string);
+	const hashedPassword = await bcrypt.hash(
+		password,
+		Number(config.bcrypt_salt_rounds),
+	);
 
 	const expirationSeconds = 5 * 60;
 
