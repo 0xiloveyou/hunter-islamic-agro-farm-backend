@@ -60,7 +60,37 @@ const uploadProfileImage = async (buffer: Buffer, userId: string) => {
 
 	return updatedUser;
 };
+const applyAsShark = async (userId: string) => {
+	// First, find the user to confirm existence
+	const user = await prisma.user.findUnique({
+		where: { id: userId },
+	});
 
+	if (!user) {
+		throw new Error("User not found");
+	}
+
+	const Updateduser = await prisma.user.update({
+		where: { id: userId },
+		data: {
+			applyAsShark: "PENDING", // Set application status to pending
+		},
+		select: {
+			id: true,
+			name: true,
+			email: true,
+			role: true,
+			applyAsShark: true,
+			imageUrl: true,
+			googleId: true,
+			// add any other fields you need
+		},
+	});
+
+	// Return the updated user
+	return Updateduser;
+};
 export const UserServices = {
 	uploadProfileImage,
+	applyAsShark,
 };

@@ -23,7 +23,20 @@ const uploadProfileImage = catchAsync(async (req: Request, res: Response) => {
 		data: result,
 	});
 });
+export const applyAsShark = catchAsync(async (req: Request, res: Response) => {
+	const userId = req.user?.userId;
 
+	// Call service to update application status
+	const user = await UserServices.applyAsShark(userId as string);
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Application submitted. Awaiting admin review.",
+		data: user,
+	});
+});
 export const UserController = {
 	uploadProfileImage,
+	applyAsShark,
 };
