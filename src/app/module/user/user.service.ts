@@ -159,9 +159,29 @@ const getSchedules = async () => {
 
 	return schedules;
 };
+const getMyAppointment = async (userId: string) => {
+	const appointment = await prisma.appointment.findFirst({
+		where: {
+			userId,
+		},
+		include: {
+			schedule: true,
+		},
+		orderBy: {
+			createdAt: "desc",
+		},
+	});
+
+	if (!appointment) {
+		throw new AppError(httpStatus.NOT_FOUND, "No appointment found");
+	}
+
+	return appointment;
+};
 export const UserServices = {
 	uploadProfileImage,
 	applyAsShark,
 	bookAppointment,
     getSchedules,
+	getMyAppointment,
 };

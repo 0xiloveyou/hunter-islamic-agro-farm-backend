@@ -27,4 +27,9 @@ router.get(
 	auth(Role.ADMIN, Role.SHARK),
 	UserController.getSchedules,
 );
+router.get(
+	"/my-appointment",
+	auth(Role.SHARK),
+	UserController.getMyAppointment,
+);
 export const UserRoutes = router;

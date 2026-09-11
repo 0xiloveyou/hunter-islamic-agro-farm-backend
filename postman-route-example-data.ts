@@ -135,12 +135,17 @@ GET /api/user/schedules
 
 
 =======================
+get -> /admin/appointment-requests
+
 
 
 
 =====================  
+patch -> /appointment-requests/:appointmentId/approve
 
-
+{
+  "appointmentUrl": "https://example.com/appointment/d815f636-11d1-4db6-a4e5-d85d340eff2a"
+}
 =======================
 
 

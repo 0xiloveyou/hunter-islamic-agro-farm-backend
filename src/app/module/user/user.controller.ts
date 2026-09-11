@@ -67,9 +67,23 @@ const getSchedules = catchAsync(async (req: Request, res: Response) => {
 		data: schedules,
 	});
 });
+const getMyAppointment = catchAsync(async (req: Request, res: Response) => {
+	const userId = req.user.userId;
+
+	const appointment = await UserServices.getMyAppointment(userId);
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Appointment retrieved successfully",
+		data: appointment,
+	});
+});
 export const UserController = {
 	uploadProfileImage,
 	applyAsShark,
 	bookAppointment,
 	getSchedules,
+	getMyAppointment,
+	
 };
