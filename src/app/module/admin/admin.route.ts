@@ -12,5 +12,11 @@ router.get(
 	AdminController.getSharkApplications,
 );
 
+router.patch(
+	"/accept-shark/:userId",
+	auth(Role.ADMIN),
+	AdminController.acceptSharkApplication,
+);
+
 
 export const AdminRoutes = router;

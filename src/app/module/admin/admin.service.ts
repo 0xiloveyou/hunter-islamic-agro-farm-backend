@@ -32,7 +32,41 @@ const getSharkApplications = async () => {
 	return users;
 };
 
+const acceptSharkApplication = async (userId: string) => {
+	const user = await prisma.user.findUnique({
+		where: {
+			id: userId,
+		},
+	});
+
+	if (!user) {
+		throw new AppError(httpStatus.NOT_FOUND, "User not found");
+	}
+
+	if (user.applyAsShark !== "PENDING") {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"User does not have a pending shark application",
+		);
+	}
+
+	const updatedUser = await prisma.user.update({
+		where: {
+			id: userId,
+		},
+		data: {
+			role: "SHARK",
+			applyAsShark: "APPROVED",
+		},
+		omit: {
+			password: true,
+		},
+	});
+
+	return updatedUser;
+};
+
 export const AdminService = {
    getSharkApplications,
-
+   acceptSharkApplication,
 };

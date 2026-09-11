@@ -15,10 +15,25 @@ const getSharkApplications = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
+const acceptSharkApplication = catchAsync(
+	async (req: Request, res: Response) => {
+		const { userId } = req.params;
+
+		const user = await AdminService.acceptSharkApplication(userId as string);
+
+		sendResponse(res, {
+			statusCode: httpStatus.OK,
+			success: true,
+			message: "Shark application accepted successfully",
+			data: user,
+		});
+	},
+);
+
 
 export const AdminController = {
 	getSharkApplications,
-
+    acceptSharkApplication,
 };
 
 
