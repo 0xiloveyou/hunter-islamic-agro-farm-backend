@@ -20,6 +20,13 @@ enum ApplyAsSharkStatus {
   PENDING
   APPROVED
 }
+enum AppointmentStatus {
+  PENDING
+  ACCEPTED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+}
 
 enum InvestmentStatus {
   PENDING
@@ -49,13 +56,7 @@ enum ProjectStatus {
   CANCELLED
 }
 
-enum AppointmentStatus {
-  PENDING
-  CONFIRMED
-  COMPLETED
-  CANCELLED
-  RESCHEDULED
-}
+
 
 enum FundStatus {
   ACTIVE

@@ -1,0 +1,16 @@
+model Schedule {
+  id          String   @id @default(uuid())
+
+  scheduledAt DateTime
+  duration    Int      @default(30)
+
+  isBooked    Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  appointment Appointment?
+
+  @@index([scheduledAt])
+  @@index([isBooked])
+}

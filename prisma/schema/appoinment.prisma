@@ -1,25 +1,23 @@
 model Appointment {
-  id            String            @id @default(uuid())
+  id             String            @id @default(uuid())
 
-  userId        String
-  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  scheduledAt   DateTime
-  duration      Int               @default(30)
+  scheduleId     String            @unique
+  schedule       Schedule          @relation(fields: [scheduleId], references: [id], onDelete: Restrict)
 
-  purpose       String?
-  notes         String?
+  purpose        String?
+  notes          String?
 
-  status        AppointmentStatus @default(PENDING)
+  status         AppointmentStatus @default(PENDING)
 
   appointmentUrl String?
+  documentUrl    String?
 
-  documentUrl   String?
-
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
 
   @@index([userId])
-  @@index([scheduledAt])
   @@index([status])
 }
