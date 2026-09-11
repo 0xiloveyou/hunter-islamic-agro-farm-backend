@@ -154,7 +154,12 @@ GET /api/user/my-appointment
 
 =====================  
 
+POST /api/payments/create-checkout
 
+{
+  "numberOfShares": 2
+}
+  
 =======================
 
 

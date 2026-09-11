@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import { catchAsync } from "../../utils/catchAsync";
 import { PaymentServices } from "./payments.service";
 import { sendResponse } from "../../utils/sendResponse";
+import { AppError } from "../../utils/AppError";
 
 const createCheckout = catchAsync(
   async (req: Request, res: Response) => {
@@ -22,7 +23,19 @@ const createCheckout = catchAsync(
     });
   },
 );
+const webhook = catchAsync(async (req: Request, res: Response) => {
+	const signature = req.headers["stripe-signature"];
 
+	if (!signature) {
+		throw new AppError(httpStatus.BAD_REQUEST, "Stripe signature is missing");
+	}
+
+	await PaymentServices.handleWebhook(req.body);
+
+	res.status(httpStatus.OK).json({
+		received: true,
+	});
+});
 const getMyPayments = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user?.userId;
@@ -41,5 +54,6 @@ const getMyPayments = catchAsync(
 export const PaymentController = {
   createCheckout,
   getMyPayments,
+  webhook,
 };
 

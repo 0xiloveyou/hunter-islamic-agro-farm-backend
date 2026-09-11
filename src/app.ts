@@ -8,6 +8,7 @@ import { notFound } from './app/middleware/notFound'
 import { AuthRoutes } from './app/module/auth/auth.route'
 import { UserRoutes } from './app/module/user/user.route'
 import { AdminRoutes } from './app/module/admin/admin.route'
+import { PaymentRoutes } from './app/module/payments/payments.route'
 
 const app: Application = express()
 
@@ -28,6 +29,7 @@ app.use(cookieParser())
 app.use('/api/v1/auth', AuthRoutes)
 app.use("/api/v1/user", UserRoutes);
 app.use("/api/v1/admin", AdminRoutes);
+app.use("/api/v1/payments", PaymentRoutes);
 
 // Basic route
 app.get('/', async (req: Request, res: Response) => {
