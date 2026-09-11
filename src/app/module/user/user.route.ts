@@ -22,4 +22,9 @@ router.post(
 	auth(Role.SHARK),
 	UserController.bookAppointment,
 );
+router.get(
+	"/schedules",
+	auth(Role.ADMIN, Role.SHARK),
+	UserController.getSchedules,
+);
 export const UserRoutes = router;

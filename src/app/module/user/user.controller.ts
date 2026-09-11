@@ -37,9 +37,12 @@ export const applyAsShark = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 const bookAppointment = catchAsync(async (req: Request, res: Response) => {
-	const userId = req.user.userId;
+	const userId = req.user?.userId;
 	const { scheduleId, purpose, notes } = req.body;
 
+	if(!userId){
+		throw new Error("user not loged in")
+	}
 	const appointment = await UserServices.bookAppointment(
 		userId,
 		scheduleId,
@@ -54,8 +57,19 @@ const bookAppointment = catchAsync(async (req: Request, res: Response) => {
 		data: appointment,
 	});
 });
+const getSchedules = catchAsync(async (req: Request, res: Response) => {
+	const schedules = await UserServices.getSchedules();
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Schedules retrieved successfully",
+		data: schedules,
+	});
+});
 export const UserController = {
 	uploadProfileImage,
 	applyAsShark,
 	bookAppointment,
+	getSchedules,
 };

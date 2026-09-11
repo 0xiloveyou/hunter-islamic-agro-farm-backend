@@ -1,6 +1,8 @@
 import type { UploadApiResponse } from "cloudinary";
 import { cloudinary } from "../../lib/cloudinary";
 import { prisma } from "../../lib/prisma";
+import httpStatus from "http-status";
+import { AppError } from "../../utils/AppError";
 
 const uploadProfileImage = async (buffer: Buffer, userId: string) => {
 
@@ -145,9 +147,21 @@ const bookAppointment = async (
 
 	return appointment;
 };
+const getSchedules = async () => {
+	const schedules = await prisma.schedule.findMany({
+		where: {
+			isBooked: false,
+		},
+		orderBy: {
+			scheduledAt: "asc",
+		},
+	});
+
+	return schedules;
+};
 export const UserServices = {
 	uploadProfileImage,
 	applyAsShark,
 	bookAppointment,
-	
+    getSchedules,
 };
