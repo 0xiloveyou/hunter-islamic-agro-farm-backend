@@ -138,6 +138,21 @@ const createCheckout = async (
   }
 };
 
+const getMyPayments = async (userId: string) => {
+  const payments = await prisma.payment.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      share: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return payments;
+};
 
 
 

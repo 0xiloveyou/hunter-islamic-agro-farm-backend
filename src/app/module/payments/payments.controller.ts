@@ -23,23 +23,23 @@ const createCheckout = catchAsync(
   },
 );
 
-// const getMyPayments = catchAsync(
-//   async (req: Request, res: Response) => {
-//     const userId = req.user?.userId;
+const getMyPayments = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user?.userId;
 
-//     const result = await PaymentServices.getMyPayments(userId as string);
+    const result = await PaymentServices.getMyPayments(userId as string);
 
-//     sendResponse(res, {
-//       statusCode: httpStatus.OK,
-//       success: true,
-//       message: "Payment history retrieved successfully",
-//       data: result,
-//     });
-//   },
-// );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Payment history retrieved successfully",
+      data: result,
+    });
+  },
+);
 
 export const PaymentController = {
   createCheckout,
-  // getMyPayments,
+  getMyPayments,
 };
 
