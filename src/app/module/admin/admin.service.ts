@@ -1,0 +1,38 @@
+import bcrypt from "bcryptjs";
+import crypto from "crypto";
+import ejs from "ejs";
+import { JwtPayload, SignOptions } from "jsonwebtoken";
+import {
+	AuthProvider,
+	Role,
+	UserStatus,
+} from "../../../generated/prisma/enums";
+import config from "../../config";
+import { prisma } from "../../lib/prisma";
+import { jwtUtils } from "../../utils/jwt";
+import { TokenPayload } from "google-auth-library";
+import { googleClient } from "../../lib/googleAuth";
+import { AppError } from "../../utils/AppError";
+import httpStatus from "http-status";
+import { redisClient } from "../../lib/redis";
+import { transporter } from "../../lib/nodemailer";
+import path from "path";
+import { profile } from "console";
+
+const getSharkApplications = async () => {
+	const users = await prisma.user.findMany({
+		where: {
+			applyAsShark: "PENDING",
+		},
+		omit: {
+			password: true,
+		},
+	});
+
+	return users;
+};
+
+export const AdminService = {
+   getSharkApplications,
+
+};
