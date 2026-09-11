@@ -154,7 +154,46 @@ const getMyPayments = async (userId: string) => {
   return payments;
 };
 
+const handleWebhook = async (event: any) => {
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
 
+    const paymentId = session.metadata?.paymentId;
+    const shareId = session.metadata?.shareId;
+
+    if (!paymentId || !shareId) {
+      return;
+    }
+
+    const payment = await prisma.payment.findUnique({
+      where: {
+        id: paymentId,
+      },
+    });
+
+    if (!payment) {
+      return;
+    }
+
+    if (payment.status === PaymentStatus.VERIFIED) {
+      return;
+    }
+
+    await prisma.$transaction(async (tx) => {
+      await tx.payment.update({
+        where: {
+          id: paymentId,
+        },
+        data: {
+          status: PaymentStatus.VERIFIED,
+          transactionId: session.payment_intent as string,
+          stripePaymentIntentId: session.payment_intent as string,
+          paidAt: new Date(),
+        },
+      });
+    });
+  }
+};
 
 export const PaymentServices = {
   createCheckout,
