@@ -17,5 +17,9 @@ router.post(
 	auth(Role.ADMIN, Role.INVESTOR),
 	UserController.applyAsShark,
 );
-
+router.post(
+	"/book-appointment",
+	auth(Role.SHARK),
+	UserController.bookAppointment,
+);
 export const UserRoutes = router;

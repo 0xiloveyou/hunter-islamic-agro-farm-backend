@@ -118,6 +118,13 @@ Authorization: Bearer ADMIN_ACCESS_TOKEN
 No Body
 
 
+============================
+
+POST /api/user/book-appointment
+Authorization: Bearer SHARK_ACCESS_TOKEN
+
+
+
 */
 
 /*

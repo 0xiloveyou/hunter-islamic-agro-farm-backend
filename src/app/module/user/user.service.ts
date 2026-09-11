@@ -90,7 +90,64 @@ const applyAsShark = async (userId: string) => {
 	// Return the updated user
 	return Updateduser;
 };
+const bookAppointment = async (
+	userId: string,
+	scheduleId: string,
+	purpose?: string,
+	notes?: string,
+) => {
+	const user = await prisma.user.findUnique({
+		where: { id: userId },
+	});
+
+	if (!user) {
+		throw new AppError(httpStatus.NOT_FOUND, "User not found");
+	}
+
+	if (user.role !== "SHARK") {
+		throw new AppError(
+			httpStatus.FORBIDDEN,
+			"Only sharks can book appointments",
+		);
+	}
+
+	const schedule = await prisma.schedule.findUnique({
+		where: { id: scheduleId },
+	});
+
+	if (!schedule) {
+		throw new AppError(httpStatus.NOT_FOUND, "Schedule not found");
+	}
+
+	if (schedule.isBooked) {
+		throw new AppError(httpStatus.CONFLICT, "This schedule is already booked");
+	}
+
+	const appointment = await prisma.$transaction(async (tx) => {
+		const createdAppointment = await tx.appointment.create({
+			data: {
+				userId,
+				scheduleId,
+				purpose,
+				notes,
+			},
+		});
+
+		await tx.schedule.update({
+			where: { id: scheduleId },
+			data: {
+				isBooked: true,
+			},
+		});
+
+		return createdAppointment;
+	});
+
+	return appointment;
+};
 export const UserServices = {
 	uploadProfileImage,
 	applyAsShark,
+	bookAppointment,
+	
 };

@@ -36,7 +36,26 @@ export const applyAsShark = catchAsync(async (req: Request, res: Response) => {
 		data: user,
 	});
 });
+const bookAppointment = catchAsync(async (req: Request, res: Response) => {
+	const userId = req.user.userId;
+	const { scheduleId, purpose, notes } = req.body;
+
+	const appointment = await UserServices.bookAppointment(
+		userId,
+		scheduleId,
+		purpose,
+		notes,
+	);
+
+	sendResponse(res, {
+		statusCode: httpStatus.CREATED,
+		success: true,
+		message: "Appointment booked successfully",
+		data: appointment,
+	});
+});
 export const UserController = {
 	uploadProfileImage,
 	applyAsShark,
+	bookAppointment,
 };
