@@ -27,7 +27,7 @@ app.use(cookieParser())
 
 app.use('/api/v1/auth', AuthRoutes)
 app.use("/api/v1/user", UserRoutes);
-app.use("/api/v1/user", AdminRoutes);
+app.use("/api/v1/admin", AdminRoutes);
 
 // Basic route
 app.get('/', async (req: Request, res: Response) => {

@@ -89,6 +89,49 @@ POST /api/auth/refresh-token
 
 */
 
+/*
+
+9. APPLY AS SHARK
+========================================
+POST /api/user/apply-as-shark
+
+Authorization: Bearer INVESTOR_ACCESS_TOKEN
+
+No Body
+
+=====================
+
+10. GET SHARK APPLICATIONS
+========================================
+GET /api/admin/accept-shark
+
+Authorization: Bearer ADMIN_ACCESS_TOKEN
+
+No Body
+===================
+11. ACCEPT SHARK APPLICATION
+========================================
+PATCH /api/admin/accept-shark/:userId
+
+Authorization: Bearer ADMIN_ACCESS_TOKEN
+
+No Body
 
 
+*/
+
+/*
+{
+  "email": "asifsifat99@gmail.com",
+  "password": "NewPassword@456"
+}
+
+{
+  "email": "tadmin@gmail.com",
+  "password": "T@admin12345."
+}
+
+
+
+*/
 
