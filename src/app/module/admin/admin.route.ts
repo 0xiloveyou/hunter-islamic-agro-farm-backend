@@ -19,4 +19,10 @@ router.patch(
 );
 
 
+router.post(
+	"/schedule",
+	auth(Role.ADMIN),
+	AdminController.createSchedule,
+);
+
 export const AdminRoutes = router;

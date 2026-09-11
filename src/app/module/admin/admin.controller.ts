@@ -30,10 +30,24 @@ const acceptSharkApplication = catchAsync(
 	},
 );
 
+const createSchedule = catchAsync(async (req: Request, res: Response) => {
+	const { scheduledAt } = req.body;
+
+	const schedule = await AdminService.createSchedule(scheduledAt);
+
+	sendResponse(res, {
+		statusCode: httpStatus.CREATED,
+		success: true,
+		message: "Schedule created successfully",
+		data: schedule,
+	});
+});
+
 
 export const AdminController = {
 	getSharkApplications,
     acceptSharkApplication,
+	createSchedule,
 };
 
 

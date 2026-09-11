@@ -65,8 +65,38 @@ const acceptSharkApplication = async (userId: string) => {
 
 	return updatedUser;
 };
+const createSchedule = async (scheduledAt: string) => {
+	const scheduleDate = new Date(scheduledAt);
+
+	if (isNaN(scheduleDate.getTime())) {
+		throw new AppError(httpStatus.BAD_REQUEST, "Invalid schedule date");
+	}
+
+	const existingSchedule = await prisma.schedule.findUnique({
+		where: {
+			scheduledAt: scheduleDate,
+		},
+	});
+
+	if (existingSchedule) {
+		throw new AppError(
+			httpStatus.CONFLICT,
+			"Schedule already exists for this time",
+		);
+	}
+
+	const schedule = await prisma.schedule.create({
+		data: {
+			scheduledAt: scheduleDate,
+			duration: 30,
+		},
+	});
+
+	return schedule;
+};
 
 export const AdminService = {
    getSharkApplications,
    acceptSharkApplication,
+   createSchedule,
 };

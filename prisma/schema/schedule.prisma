@@ -1,7 +1,7 @@
 model Schedule {
   id          String   @id @default(uuid())
 
-  scheduledAt DateTime
+  scheduledAt DateTime @unique
   duration    Int      @default(30)
 
   isBooked    Boolean  @default(false)
