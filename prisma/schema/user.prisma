@@ -9,6 +9,7 @@ model User {
   status             UserStatus   @default(ACTIVE)
   needPasswordChange Boolean      @default(false)
   role               Role       @default(INVESTOR)
+  applyAsShark       ApplyAsSharkStatus  @default(FALSE)
   imageUrl           String       @default("")
   imagePublicId      String       @default("")
   isDeleted          Boolean    @default(false)

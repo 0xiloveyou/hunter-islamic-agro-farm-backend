@@ -8,9 +8,14 @@ const router = Router();
 
 router.patch(
 	"/profile-image",
-	auth( Role.ADMIN, Role.INVESTOR, Role.SHARK),
-	upload.single("profileImage"),
+	auth(Role.ADMIN, Role.INVESTOR, Role.SHARK),
+	upload.single("profileImage"), /// frontend file name key => profileImage
 	UserController.uploadProfileImage,
+);
+router.post(
+	"/apply-as-shark",
+	auth(Role.ADMIN, Role.INVESTOR),
+	UserController.applyAsShark,
 );
 
 export const UserRoutes = router;
