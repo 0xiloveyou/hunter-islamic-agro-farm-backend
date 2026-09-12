@@ -36,18 +36,18 @@ const getAllProjects = async () => {
 	return projects;
 };
 
-// const getProjectById = async (id: string) => {
-// 	const project = await prisma.project.findUnique({
-// 		where: {
-// 			id,
-// 		},
-// 	});
+const getProjectById = async (id: string) => {
+	const project = await prisma.project.findUnique({
+		where: {
+			id,
+		},
+	});
 
-// 	return project;
-// };
+	return project;
+};
 
 export const ProjectServices = {
 	createProject,
 	getAllProjects,
-	// getProjectById,
+	getProjectById,
 };

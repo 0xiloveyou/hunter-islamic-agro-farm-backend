@@ -18,10 +18,10 @@ router.post("/", auth(Role.ADMIN), ProjectController.createProject);
  */
 router.get("/", ProjectController.getAllProjects);
 
-// /**
-//  * Public
-//  * Get single project
-//  */
-// router.get("/:id", ProjectController.getProjectById);
+/**
+ * Public
+ * Get single project
+ */
+router.get("/:id", ProjectController.getProjectById);
 
 export const ProjectRoutes = router;
