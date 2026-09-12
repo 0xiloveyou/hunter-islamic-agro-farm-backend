@@ -11,6 +11,7 @@ import { AdminRoutes } from './app/module/admin/admin.route'
 import { PaymentRoutes } from './app/module/payments/payments.route'
 import { ShareRoutes } from './app/module/share/share.route'
 import { ProjectRoutes } from './app/module/project/project.route'
+import { AnalyticsRoutes } from './app/module/analytics/analytics.route'
 
 const app: Application = express()
 
@@ -34,6 +35,7 @@ app.use("/api/v1/admin", AdminRoutes);
 app.use("/api/v1/payments", PaymentRoutes);
 app.use("/api/v1/share", ShareRoutes);
 app.use("/api/v1/projects", ProjectRoutes);
+app.use("/api/v1/analytics", AnalyticsRoutes);
 
 // Basic route
 app.get('/', async (req: Request, res: Response) => {

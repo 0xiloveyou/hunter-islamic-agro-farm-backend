@@ -184,10 +184,13 @@ POST   /api/v1/projects
 }
 
 =====================
-GET    /api/v1/projects
+GET /api/v1/projects?searchTerm=maize&status=FUNDING&page=1&limit=10&sortBy=totalCost&sortOrder=asc
+
+
 =================================
 GET    /api/v1/projects/:id
 =======================
+GET /api/v1/analytics/admin
 
 
 
