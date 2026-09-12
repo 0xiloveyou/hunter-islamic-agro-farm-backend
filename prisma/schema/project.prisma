@@ -1,0 +1,23 @@
+model Project {
+  id            String        @id @default(uuid())
+
+  title         String
+  description   String
+  imageUrl      String?
+  location      String?
+
+  totalCost     Decimal       @db.Decimal(15, 2)
+  fundedAmount  Decimal       @default(0) @db.Decimal(15, 2)
+  currency      String        @default("USD")
+
+  status        ProjectStatus @default(DRAFT)
+
+  startDate     DateTime?
+  endDate       DateTime?
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}

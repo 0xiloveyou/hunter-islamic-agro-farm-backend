@@ -33,6 +33,14 @@ enum PaymentStatus {
   FAILED
   REFUNDED
 }
+enum ProjectStatus {
+  DRAFT
+  FUNDING
+  FUNDED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
 
 enum InvestmentStatus {
   PENDING
@@ -46,15 +54,6 @@ enum PaymentMethod {
   MOBILE_MONEY
   CARD
   OTHER
-}
-
-
-
-enum ProjectStatus {
-  PLANNING
-  ACTIVE
-  COMPLETED
-  CANCELLED
 }
 
 
