@@ -17,13 +17,14 @@ const createProject = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllProjects = catchAsync(async (req: Request, res: Response) => {
-	const result = await ProjectServices.getAllProjects();
+	const { data, meta } = await ProjectServices.getAllProjects(req.query);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
 		success: true,
 		message: "Projects retrieved successfully",
-		data: result,
+		data,
+		meta,
 	});
 });
 
