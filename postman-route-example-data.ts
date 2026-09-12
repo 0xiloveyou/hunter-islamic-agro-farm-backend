@@ -170,7 +170,23 @@ get all my share
 
 =====================  
 
+POST   /api/v1/projects
 
+{
+  "title": "Uganda 3,000 Acre Maize Farm",
+  "description": "Large-scale maize farming project in Uganda.",
+  "imageUrl": "https://example.com/uganda-farm.jpg",
+  "location": "Uganda",
+  "totalCost": 2500000,
+  "currency": "USD",
+  "startDate": "2026-10-01",
+  "endDate": "2029-10-01"
+}
+
+=====================
+GET    /api/v1/projects
+=================================
+GET    /api/v1/projects/:id
 =======================
 
 
