@@ -159,10 +159,14 @@ POST /api/payments/create-checkout
 {
   "numberOfShares": 2
 }
+========================
+GET /api/payments/my-payments
   
 =======================
 
+{{local}}/share/my-shares
 
+get all my share 
 
 =====================  
 

@@ -58,6 +58,8 @@ npm i cloudinary
 npm i date-fns
 npm i stripe
 npm i -g @stripe/cli
+npm i pdfkit
+npm i -D @types/pdfkit
 -----
 
 
