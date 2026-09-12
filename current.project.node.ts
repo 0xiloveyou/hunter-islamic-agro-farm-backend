@@ -60,6 +60,7 @@ npm i stripe
 npm i -g @stripe/cli
 npm i pdfkit
 npm i -D @types/pdfkit
+npm i node-cron
 -----
 
 

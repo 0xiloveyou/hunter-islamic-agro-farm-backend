@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Shark Application Summary</title>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #f4f6f8; font-family: Arial, sans-serif;">
+
+    <div style="max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 10px; padding: 30px;">
+
+        <h2 style="margin-top: 0; color: #222;">
+            Shark Application Summary
+        </h2>
+
+        <p style="color: #555; font-size: 16px;">
+            Here is the current number of users waiting for Shark approval.
+        </p>
+
+        <div style="margin: 30px 0; padding: 25px; background-color: #f0f4ff; border-radius: 8px; text-align: center;">
+
+            <p style="margin: 0 0 10px; color: #555; font-size: 15px;">
+                Total Pending Shark Applications
+            </p>
+
+            <h1 style="margin: 0; font-size: 42px; color: #222;">
+                <%= totalApplications %>
+            </h1>
+
+        </div>
+
+        <p style="color: #666; font-size: 14px;">
+            This report was generated automatically by the Hunter Islamic Agro Farm system.
+        </p>
+
+        <p style="color: #999; font-size: 13px;">
+            Generated at:
+            <%= generatedAt.toLocaleString() %>
+        </p>
+
+    </div>
+
+</body>
+
+</html>
