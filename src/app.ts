@@ -32,6 +32,7 @@ app.use("/api/v1/user", UserRoutes);
 app.use("/api/v1/admin", AdminRoutes);
 app.use("/api/v1/payments", PaymentRoutes);
 app.use("/api/v1/share", ShareRoutes);
+app.use("/api/v1/projects", ProjectRoutes);
 
 // Basic route
 app.get('/', async (req: Request, res: Response) => {
