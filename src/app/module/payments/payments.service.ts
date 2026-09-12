@@ -335,18 +335,18 @@ const handleWebhook = async (event: any) => {
 		},
 	});
 
-// 	/**
-// 	 * Generate PDF receipt
-// 	 */
-// 	const pdfBuffer = await generatePaymentReceiptPdf(updatedPayment);
+	/**
+	 * Generate PDF receipt
+	 */
+	const pdfBuffer = await generatePaymentReceiptPdf(updatedPayment);
 
-// 	/**
-// 	 * Render EJS email
-// 	 */
-// 	const templatePath = path.join(
-// 		process.cwd(),
-// 		"src/app/templates/investment-payment-success.ejs",
-// 	);
+	// /**
+	//  * Render EJS email
+	//  */
+	// const templatePath = path.join(
+	// 	process.cwd(),
+	// 	"src/app/templates/investment-payment-success.ejs",
+	// );
 
 // 	const templateData = {
 // 		name: updatedPayment.user.name,
