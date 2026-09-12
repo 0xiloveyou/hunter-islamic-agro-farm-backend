@@ -12,11 +12,11 @@ const router = express.Router();
  */
 router.post("/", auth(Role.ADMIN), ProjectController.createProject);
 
-// /**
-//  * Public
-//  * Get all projects
-//  */
-// router.get("/", ProjectController.getAllProjects);
+/**
+ * Public
+ * Get all projects
+ */
+router.get("/", ProjectController.getAllProjects);
 
 // /**
 //  * Public

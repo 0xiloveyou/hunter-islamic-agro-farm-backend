@@ -16,16 +16,16 @@ const createProject = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
-// const getAllProjects = catchAsync(async (req: Request, res: Response) => {
-// 	const result = await ProjectServices.getAllProjects();
+const getAllProjects = catchAsync(async (req: Request, res: Response) => {
+	const result = await ProjectServices.getAllProjects();
 
-// 	sendResponse(res, {
-// 		statusCode: httpStatus.OK,
-// 		success: true,
-// 		message: "Projects retrieved successfully",
-// 		data: result,
-// 	});
-// });
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Projects retrieved successfully",
+		data: result,
+	});
+});
 
 // const getProjectById = catchAsync(async (req: Request, res: Response) => {
 // 	const result = await ProjectServices.getProjectById(req.params.id as string);
@@ -40,6 +40,6 @@ const createProject = catchAsync(async (req: Request, res: Response) => {
 
 export const ProjectController = {
 	createProject,
-	// getAllProjects,
+	getAllProjects,
 	// getProjectById,
 };

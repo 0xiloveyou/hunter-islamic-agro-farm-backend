@@ -26,15 +26,15 @@ const createProject = async (data: {
 	return project;
 };
 
-// const getAllProjects = async () => {
-// 	const projects = await prisma.project.findMany({
-// 		orderBy: {
-// 			createdAt: "desc",
-// 		},
-// 	});
+const getAllProjects = async () => {
+	const projects = await prisma.project.findMany({
+		orderBy: {
+			createdAt: "desc",
+		},
+	});
 
-// 	return projects;
-// };
+	return projects;
+};
 
 // const getProjectById = async (id: string) => {
 // 	const project = await prisma.project.findUnique({
@@ -48,6 +48,6 @@ const createProject = async (data: {
 
 export const ProjectServices = {
 	createProject,
-	// getAllProjects,
+	getAllProjects,
 	// getProjectById,
 };

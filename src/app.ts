@@ -10,6 +10,7 @@ import { UserRoutes } from './app/module/user/user.route'
 import { AdminRoutes } from './app/module/admin/admin.route'
 import { PaymentRoutes } from './app/module/payments/payments.route'
 import { ShareRoutes } from './app/module/share/share.route'
+import { ProjectRoutes } from './app/module/project/project.route'
 
 const app: Application = express()
 
