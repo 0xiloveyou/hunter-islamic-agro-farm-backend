@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Investment Payment Successful</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            padding: 30px;
+            text-align: center;
+            background-color: #111827;
+            color: #ffffff;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .success {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .success h2 {
+            color: #16a34a;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .row {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #4b5563;
+        }
+
+        .value {
+            float: right;
+            color: #111827;
+        }
+
+        .footer {
+            padding: 20px 30px;
+            text-align: center;
+            background-color: #f9fafb;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        ```
+        <div class="header">
+            <h1>Investment Confirmation</h1>
+        </div>
+
+        <div class="content">
+
+            <div class="success">
+                <h2>Congratulations, <%= name %>! 🎉</h2>
+
+                <p>
+                    Your investment payment has been successfully completed.
+                </p>
+
+                <p>
+                    Your shares have been recorded successfully.
+                </p>
+            </div>
+
+            <div class="info-box">
+
+                <div class="row clearfix">
+                    <span class="label">Number of Shares</span>
+                    <span class="value">
+                        <%= numberOfShares %>
+                    </span>
+                </div>
+
+                <div class="row clearfix">
+                    <span class="label">Price Per Share</span>
+                    <span class="value">$<%= pricePerShare %></span>
+                </div>
+
+                <div class="row clearfix">
+                    <span class="label">Total Amount</span>
+                    <span class="value">$<%= totalAmount %></span>
+                </div>
+
+                <div class="row clearfix">
+                    <span class="label">Currency</span>
+                    <span class="value">
+                        <%= currency %>
+                    </span>
+                </div>
+
+                <div class="row clearfix">
+                    <span class="label">Payment Status</span>
+                    <span class="value">VERIFIED</span>
+                </div>
+
+                <div class="row clearfix">
+                    <span class="label">Transaction ID</span>
+                    <span class="value">
+                        <%= transactionId %>
+                    </span>
+                </div>
+
+                <div class="row clearfix">
+                    <span class="label">Checkout Session</span>
+                    <span class="value">
+                        <%= stripeSessionId %>
+                    </span>
+                </div>
+
+                <div class="row clearfix">
+                    <span class="label">Payment Date</span>
+                    <span class="value">
+                        <%= paidAt %>
+                    </span>
+                </div>
+
+            </div>
+
+            <p style="margin-top: 25px;">
+                A PDF payment receipt containing your investment and transaction
+                details is attached to this email for your records.
+            </p>
+
+            <p>
+                Thank you for investing with us.
+            </p>
+
+        </div>
+
+        <div class="footer">
+            <p>
+                This is an automated payment confirmation email.
+            </p>
+
+            <p>
+                Please keep the attached receipt for your records.
+            </p>
+        </div>
+        ```
+
+    </div>
+
+</body>
+
+</html>
