@@ -340,74 +340,74 @@ const handleWebhook = async (event: any) => {
 	 */
 	const pdfBuffer = await generatePaymentReceiptPdf(updatedPayment);
 
-	// /**
-	//  * Render EJS email
-	//  */
-	// const templatePath = path.join(
-	// 	process.cwd(),
-	// 	"src/app/templates/investment-payment-success.ejs",
-	// );
+	/**
+	 * Render EJS email
+	 */
+	const templatePath = path.join(
+		process.cwd(),
+		"src/app/templates/investment-payment-success.ejs",
+	);
 
-// 	const templateData = {
-// 		name: updatedPayment.user.name,
+	const templateData = {
+		name: updatedPayment.user.name,
 
-// 		email: updatedPayment.user.email,
+		email: updatedPayment.user.email,
 
-// 		numberOfShares: updatedPayment.share.numberOfShares,
+		numberOfShares: updatedPayment.share.numberOfShares,
 
-// 		pricePerShare: updatedPayment.share.pricePerShare,
+		pricePerShare: updatedPayment.share.pricePerShare,
 
-// 		totalAmount: updatedPayment.share.totalAmount,
+		totalAmount: updatedPayment.share.totalAmount,
 
-// 		currency: updatedPayment.currency,
+		currency: updatedPayment.currency,
 
-// 		transactionId: updatedPayment.transactionId ?? "N/A",
+		transactionId: updatedPayment.transactionId ?? "N/A",
 
-// 		stripeSessionId: updatedPayment.stripeSessionId ?? "N/A",
+		stripeSessionId: updatedPayment.stripeSessionId ?? "N/A",
 
-// 		paidAt: updatedPayment.paidAt
-// 			? updatedPayment.paidAt.toLocaleString()
-// 			: "N/A",
-// 	};
+		paidAt: updatedPayment.paidAt
+			? updatedPayment.paidAt.toLocaleString()
+			: "N/A",
+	};
 
-// 	const html = await ejs.renderFile(templatePath, templateData);
+	const html = await ejs.renderFile(templatePath, templateData);
 
-// 	/**
-// 	 * Send email with PDF attachment
-// 	 */
-// 	await transporter.sendMail({
-// 		from: config.email_sender,
+	/**
+	 * Send email with PDF attachment
+	 */
+	await transporter.sendMail({
+		from: config.email_sender,
 
-// 		to: updatedPayment.user.email,
+		to: updatedPayment.user.email,
 
-// 		subject: "Congratulations! Your Investment Payment Was Successful",
+		subject: "Congratulations! Your Investment Payment Was Successful",
 
-// 		text: `
-// Congratulations ${updatedPayment.user.name}!
+		text: `
+Congratulations ${updatedPayment.user.name}!
 
-// Your investment payment has been successfully completed.
+Your investment payment has been successfully completed.
 
-// Number of Shares: ${updatedPayment.share.numberOfShares}
-// Total Amount: ${updatedPayment.currency} ${updatedPayment.share.totalAmount}
-// Transaction ID: ${updatedPayment.transactionId ?? "N/A"}
+Number of Shares: ${updatedPayment.share.numberOfShares}
+Total Amount: ${updatedPayment.currency} ${updatedPayment.share.totalAmount}
+Transaction ID: ${updatedPayment.transactionId ?? "N/A"}
 
-// Your payment receipt is attached to this email.
-//     `,
+Your payment receipt is attached to this email.
+    `,
 
-// 		html,
+		html,
 
-// 		attachments: [
-// 			{
-// 				filename: `investment-payment-receipt-${updatedPayment.id}.pdf`,
-// 				content: pdfBuffer,
-// 				contentType: "application/pdf",
-// 			},
-// 		],
-// 	});
+		attachments: [
+			{
+				filename: `investment-payment-receipt-${updatedPayment.id}.pdf`,
+				content: pdfBuffer,
+				contentType: "application/pdf",
+			},
+		],
+	});
 
-// 	console.log(
-// 		`Investment payment verified and receipt emailed to ${updatedPayment.user.email}`,
-// 	);
+	console.log(
+		`Investment payment verified and receipt emailed to ${updatedPayment.user.email}`,
+	);
 };
 
 const getMyPayments = async (userId: string) => {
