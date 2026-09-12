@@ -26,14 +26,14 @@ export const sendSharkApplicationSummary = async () => {
 				generatedAt: new Date(),
 			};
 
-			// const html = await ejs.renderFile(templatePath, templateData);
+			const html = await ejs.renderFile(templatePath, templateData);
 
-			// await transporter.sendMail({
-			// 	from: config.email_sender,
-			// 	to: "sifatasif99@gmail.com",
-			// 	subject: "Shark Application Summary",
-			// 	html,
-			// });
+			await transporter.sendMail({
+				from: config.email_sender,
+				to: "sifatasif99@gmail.com",
+				subject: "Shark Application Summary",
+				html,
+			});
 
 			console.log(
 				`Cron: Shark application summary sent. Total pending applications: ${totalApplications}`,
