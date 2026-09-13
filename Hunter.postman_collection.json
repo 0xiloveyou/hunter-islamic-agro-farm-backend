@@ -1,0 +1,746 @@
+{
+  "info": {
+    "_postman_id": "376c0839-3248-4e8d-9277-422545fed958",
+    "name": "Hunter",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54698434",
+    "_collection_link": "https://go.postman.co/collection/54698434-376c0839-3248-4e8d-9277-422545fed958?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "profile Image Change",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "profileImage",
+                  "type": "file",
+                  "src": [
+                    "/D:/CANVA/Wallpaper/CRT (2).png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{local}}/user/profile-image",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "user",
+                "profile-image"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "apply as shark",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "profileImage",
+                  "type": "file",
+                  "src": [
+                    "/D:/CANVA/Wallpaper/CRT (2).png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{local}}/user/apply-as-shark",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "user",
+                "apply-as-shark"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all schedule",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/user/schedules",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "user",
+                "schedules"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "book appoinment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"scheduleId\": \"d5154012-29b9-45c2-b9ab-3d917a245217\",\r\n  \"purpose\": \"Discuss investment opportunities\",\r\n  \"notes\": \"I would like to discuss the agricultural investment projects.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/user/book-appointment",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "user",
+                "book-appointment"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get my appoinment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/user/my-appointment",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "user",
+                "my-appointment"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "register user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"John\",\r\n  \"email\": \"asifsifat99@gmail.com\",\r\n  \"password\": \"Password@123\",\r\n  \"profile\": {\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"asifsifat99@gmail.com\",\r\n    \"phone\": \"+8801712345678\",\r\n    \"country\": \"Bangladesh\",\r\n    \"address\": \"Dhaka, Bangladesh\",\r\n    \"bio\": \"Software Developer\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/register",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verify Email",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"asifsifat99@gmail.com\",\r\n  \"otp\": \"731579\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/verify-email",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"asifsifat99@gmail.com\",\r\n  \"password\": \"Password@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/login",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "google login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"idToken\": \"\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/google",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "google"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "forgot password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"asifsifat99@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/forgot-password",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"asifsifat99@gmail.com\",\r\n  \"newPassword\": \"NewPassword@456\",\r\n  \"otp\": \"222393\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/reset-password",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get me",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/me",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "refresh token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/auth/refresh-token",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "get all apply",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/admin/accept-shark",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "admin",
+                "accept-shark"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "approve single shark",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/admin/accept-shark/09134da3-f3e8-435a-86a8-14386daa90d5",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "admin",
+                "accept-shark",
+                "09134da3-f3e8-435a-86a8-14386daa90d5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "set Schedule",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\t\"scheduledAt\": \"2026-09-15T10:00:00.000Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/admin/schedule",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "admin",
+                "schedule"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all request for appoinment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/admin/appointment-requests",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "admin",
+                "appointment-requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "approve appoinment",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"appointmentUrl\": \"https://example.com/appointment/d815f636-11d1-4db6-a4e5-d85d340eff2a\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/admin/appointment-requests//approve",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "admin",
+                "appointment-requests",
+                "",
+                "approve"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "create checkout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"numberOfShares\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/payments/create-checkout",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "payments",
+                "create-checkout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get my paymnet",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{local}}/payments/my-payments",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "payments",
+                "my-payments"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Share",
+      "item": [
+        {
+          "name": "get my share",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/share/my-shares",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "share",
+                "my-shares"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "analytic",
+      "item": [
+        {
+          "name": "get analytic by admin",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/analytics/admin",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "analytics",
+                "admin"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "project",
+      "item": [
+        {
+          "name": "create project",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Uganda 3,000 Acre Maize Farm\",\r\n  \"description\": \"Large-scale maize farming project in Uganda.\",\r\n  \"imageUrl\": \"https://example.com/uganda-farm.jpg\",\r\n  \"location\": \"Uganda\",\r\n  \"totalCost\": 2500000,\r\n  \"currency\": \"USD\",\r\n  \"startDate\": \"2026-10-01\",\r\n  \"endDate\": \"2029-10-01\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/projects",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all project",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/projects",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get single project",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{local}}/projects/95c8b28f-0238-45bd-b560-17ab66bf1f4b",
+              "host": [
+                "{{local}}"
+              ],
+              "path": [
+                "projects",
+                "95c8b28f-0238-45bd-b560-17ab66bf1f4b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
