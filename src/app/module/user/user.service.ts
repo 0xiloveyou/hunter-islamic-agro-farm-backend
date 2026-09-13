@@ -178,10 +178,12 @@ const getMyAppointment = async (userId: string) => {
 
 	return appointment;
 };
+
 export const UserServices = {
 	uploadProfileImage,
 	applyAsShark,
 	bookAppointment,
-    getSchedules,
+	getSchedules,
 	getMyAppointment,
+
 };

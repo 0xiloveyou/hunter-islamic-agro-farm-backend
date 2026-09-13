@@ -79,6 +79,7 @@ const getMyAppointment = catchAsync(async (req: Request, res: Response) => {
 		data: appointment,
 	});
 });
+
 export const UserController = {
 	uploadProfileImage,
 	applyAsShark,

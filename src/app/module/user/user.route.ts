@@ -32,4 +32,5 @@ router.get(
 	auth(Role.SHARK),
 	UserController.getMyAppointment,
 );
+
 export const UserRoutes = router;
