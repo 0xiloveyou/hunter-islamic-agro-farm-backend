@@ -2,6 +2,8 @@
 
 Backend API for the Hunter Islamic Agro Farm investment platform. The system supports investor and shark registration, email verification, Google login, role-based access, shark applications, appointment scheduling, investment project listing, Stripe checkout, share tracking, payment receipts, and admin analytics.
 
+![ERD Diagram](<ERD Diagram.png>)
+
 ## Tech Stack
 
 - Node.js, Express 5, TypeScript
