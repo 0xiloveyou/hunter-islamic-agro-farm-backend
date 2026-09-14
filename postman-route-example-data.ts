@@ -205,7 +205,7 @@ GET /api/v1/analytics/admin
 {
   "email": "asifsifat99@gmail.com",
   "password": "Password@123"
-}
+} 
 
 {
   "email": "tadmin@gmail.com",

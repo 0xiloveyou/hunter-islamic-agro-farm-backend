@@ -25,7 +25,7 @@ const main = async () => {
 		console.log("Nodemailer Connected Successfully.");
 
         sendSharkApplicationSummary();
-
+ 
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         })
