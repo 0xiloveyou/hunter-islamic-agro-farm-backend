@@ -4,6 +4,7 @@ import { catchAsync } from '../../utils/catchAsync'
 import { sendResponse } from '../../utils/sendResponse'
 import { AuthService } from './auth.service'
 import { IRequestUser } from './auth.interface'
+import config from '../../config'
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
 
@@ -27,14 +28,14 @@ const verifyUserEmail = catchAsync(async (req: Request, res: Response) => {
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
-		secure: false,
-		sameSite: "none",
+		secure: config.node_env === "development" ? false : true,
+		sameSite: config.node_env === "development" ? "lax" : "none",
 		maxAge: 1000 * 60 * 60 * 24, // 24 hour or 1 day
 	});
 	res.cookie("refreshToken", refreshToken, {
 		httpOnly: true,
-		secure: false,
-		sameSite: "none",
+		secure: config.node_env === "development" ? false : true,
+        sameSite: config.node_env === "development" ? "lax" : "none",
 		maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
 	});
 
@@ -57,17 +58,17 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     const { accessToken, refreshToken } = result
 
     res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24 // 24 hour or 1 day
-    })
+					httpOnly: true,
+					secure: config.node_env === "development" ? false : true,
+					sameSite: config.node_env === "development" ? "lax" : "none",
+					maxAge: 1000 * 60 * 60 * 24, // 24 hour or 1 day
+				});
     res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
-    })
+					httpOnly: true,
+					secure: config.node_env === "development" ? false : true,
+					sameSite: config.node_env === "development" ? "lax" : "none",
+					maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+				});
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -88,14 +89,14 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
-		secure: false,
-		sameSite: "none",
+		secure: config.node_env === "development" ? false : true,
+        sameSite: config.node_env === "development" ? "lax" : "none",
 		maxAge: 1000 * 60 * 60 * 24, // 24 hour or 1 day
 	});
 	res.cookie("refreshToken", refreshToken, {
 		httpOnly: true,
-		secure: false,
-		sameSite: "none",
+		secure: config.node_env === "development" ? false : true,
+        sameSite: config.node_env === "development" ? "lax" : "none",
 		maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
 	});
 
@@ -160,17 +161,17 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
     const { accessToken, refreshToken: newRefreshToken } = result
 
     res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24 // 24 hour or 1 day
-    })
+					httpOnly: true,
+					secure: config.node_env === "development" ? false : true,
+					sameSite: config.node_env === "development" ? "lax" : "none",
+					maxAge: 1000 * 60 * 60 * 24, // 24 hour or 1 day
+				});
     res.cookie("refreshToken", newRefreshToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
-    })
+					httpOnly: true,
+					secure: config.node_env === "development" ? false : true,
+					sameSite: config.node_env === "development" ? "lax" : "none",
+					maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+				});
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -182,7 +183,7 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
         },
     })
 })
-
+// select an area and use ctrl + d to finde similler thing 
 
 export const AuthController = {
 	registerUser,
