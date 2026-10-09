@@ -21,7 +21,6 @@ const registerUser = catchAsync(async (req: Request, res: Response) => {
 
 const verifyUserEmail = catchAsync(async (req: Request, res: Response) => {
 	const payload = req.body;
-
 	const result = await AuthService.verifyUserEmail(payload);
 
 	const { accessToken, refreshToken, user, profile } = result;

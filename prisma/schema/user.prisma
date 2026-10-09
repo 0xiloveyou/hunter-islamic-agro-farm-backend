@@ -1,25 +1,26 @@
 model User {
-  id                 String     @id @default(uuid())
+  id                 String             @id @default(uuid())
   name               String
   email              String
   password           String?
-  googleId           String?      @unique
-  authProvider       AuthProvider @default(CREDENTIAL)
-  emailVerified      Boolean      @default(false)
-  status             UserStatus   @default(ACTIVE)
-  needPasswordChange Boolean      @default(false)
-  role               Role       @default(INVESTOR)
-  applyAsShark       ApplyAsSharkStatus  @default(FALSE)
-  imageUrl           String       @default("")
-  imagePublicId      String       @default("")
-  isDeleted          Boolean    @default(false)
+  googleId           String?            @unique
+  authProvider       AuthProvider       @default(CREDENTIAL)
+  emailVerified      Boolean            @default(false)
+  status             UserStatus         @default(ACTIVE)
+  needPasswordChange Boolean            @default(false)
+  role               Role               @default(INVESTOR)
+  applyAsShark       ApplyAsSharkStatus @default(FALSE)
+  imageUrl           String             @default("")
+  imagePublicId      String             @default("")
+  isDeleted          Boolean            @default(false)
   deletedAt          DateTime?
-  createdAt          DateTime   @default(now())
-  updatedAt          DateTime   @updatedAt
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
   profile            Profile?
-appointments       Appointment[]
-shares   Share[]
-payments Payment[]
+  appointments       Appointment[]
+  shares             Share[]
+  payments           Payment[]
+
   @@unique([email])
   @@map("users")
 }

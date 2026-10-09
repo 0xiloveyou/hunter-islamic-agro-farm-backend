@@ -4,7 +4,6 @@ enum UserStatus {
   DELETED
 }
 
-
 enum Role {
   ADMIN
   SHARK
@@ -15,11 +14,14 @@ enum AuthProvider {
   GOOGLE
   CREDENTIAL
 }
+
 enum ApplyAsSharkStatus {
   FALSE
   PENDING
   APPROVED
+  REJECTED
 }
+
 enum AppointmentStatus {
   PENDING
   ACCEPTED
@@ -27,12 +29,14 @@ enum AppointmentStatus {
   CANCELLED
   RESCHEDULED
 }
+
 enum PaymentStatus {
   PENDING
   VERIFIED
   FAILED
   REFUNDED
 }
+
 enum ProjectStatus {
   DRAFT
   FUNDING
@@ -56,10 +60,7 @@ enum PaymentMethod {
   OTHER
 }
 
-
-
 enum FundStatus {
   ACTIVE
   CLOSED
 }
-

@@ -1,13 +1,13 @@
 model Schedule {
-  id          String   @id @default(uuid())
+  id String @id @default(uuid())
 
   scheduledAt DateTime @unique
   duration    Int      @default(30)
 
-  isBooked    Boolean  @default(false)
+  isBooked Boolean @default(false)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   appointment Appointment?
 

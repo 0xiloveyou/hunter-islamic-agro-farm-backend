@@ -103,7 +103,7 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 const verifyUserEmail = async (payload: IVerifyEmailPayload) => {
 	const otp = payload.otp;
 	const email = payload.email.trim().toLowerCase();
-
+    // console.log(otp, email)
 	const isUserExist = await prisma.user.findUnique({
 		where: { email },
 	});
