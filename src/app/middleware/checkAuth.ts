@@ -27,11 +27,18 @@ declare global {
 // auth() => ...requiredRoles => [Role.ADMIN, Role.USER, Role.AUTHOR]
 export const auth = (...requiredRoles: Role[]) => {
 	return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-		const token = req.cookies.accessToken
+		const token = req.cookies?.accessToken
 			? req.cookies.accessToken
 			: req.headers.authorization?.startsWith("Bearer ")
-				? req.headers.authorization?.split(" ")[1]
+				? req.headers.authorization.split(" ")[1]
 				: req.headers.authorization;
+
+		// console.log("Auth request:", {
+		// 	method: req.method,
+		// 	path: req.originalUrl,
+		// 	hasCookieToken: Boolean(req.cookies?.accessToken),
+		// 	hasAuthorizationHeader: Boolean(req.headers.authorization),
+		// });
 
 		if (!token) {
 			throw new AppError(

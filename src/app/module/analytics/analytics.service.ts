@@ -24,8 +24,8 @@ const getAdminAnalytics = async () => {
 		pendingSharkApplications,
 		approvedSharkApplications,
 
-		investmentAmount,
-		verifiedInvestmentAmount,
+		totalPaymentAmount,
+		verifiedPaymentAmount,
 
 		projectCost,
 		projectFundedAmount,
@@ -37,102 +37,67 @@ const getAdminAnalytics = async () => {
 		completedProjects,
 		cancelledProjects,
 	] = await Promise.all([
-		// =========================
 		// USERS
-		// =========================
-
 		prisma.user.count(),
 
 		prisma.user.count({
-			where: {
-				role: Role.INVESTOR,
-			},
+			where: { role: Role.INVESTOR },
 		}),
 
 		prisma.user.count({
-			where: {
-				role: Role.SHARK,
-			},
+			where: { role: Role.SHARK },
 		}),
 
 		prisma.user.count({
-			where: {
-				role: Role.ADMIN,
-			},
+			where: { role: Role.ADMIN },
 		}),
 
-		// =========================
 		// PROJECTS
-		// =========================
-
 		prisma.project.count(),
 
-		// =========================
 		// SHARES
-		// =========================
-
 		prisma.share.aggregate({
 			_sum: {
 				numberOfShares: true,
 			},
 		}),
 
-		// =========================
 		// PAYMENTS
-		// =========================
-
 		prisma.payment.count(),
 
 		prisma.payment.count({
-			where: {
-				status: PaymentStatus.VERIFIED,
-			},
+			where: { status: PaymentStatus.VERIFIED },
 		}),
 
 		prisma.payment.count({
-			where: {
-				status: PaymentStatus.PENDING,
-			},
+			where: { status: PaymentStatus.PENDING },
 		}),
 
 		prisma.payment.count({
-			where: {
-				status: PaymentStatus.FAILED,
-			},
+			where: { status: PaymentStatus.FAILED },
 		}),
 
 		prisma.payment.count({
-			where: {
-				status: PaymentStatus.REFUNDED,
-			},
+			where: { status: PaymentStatus.REFUNDED },
 		}),
 
-		// =========================
 		// SHARK APPLICATIONS
-		// =========================
-
 		prisma.user.count({
-			where: {
-				applyAsShark: "PENDING",
-			},
+			where: { applyAsShark: "PENDING" },
 		}),
 
 		prisma.user.count({
-			where: {
-				applyAsShark: "APPROVED",
-			},
+			where: { applyAsShark: "APPROVED" },
 		}),
 
-		// =========================
-		// INVESTMENT AMOUNT
-		// =========================
-
+		// ALL PAYMENT AMOUNTS
 		prisma.payment.aggregate({
 			_sum: {
 				amount: true,
 			},
 		}),
 
+		// VERIFIED PAYMENT AMOUNTS
 		prisma.payment.aggregate({
 			_sum: {
 				amount: true,
@@ -142,10 +107,7 @@ const getAdminAnalytics = async () => {
 			},
 		}),
 
-		// =========================
 		// PROJECT FUNDING
-		// =========================
-
 		prisma.project.aggregate({
 			_sum: {
 				totalCost: true,
@@ -158,64 +120,48 @@ const getAdminAnalytics = async () => {
 			},
 		}),
 
-		// =========================
 		// PROJECT STATUS
-		// =========================
-
 		prisma.project.count({
-			where: {
-				status: ProjectStatus.DRAFT,
-			},
+			where: { status: ProjectStatus.DRAFT },
 		}),
 
 		prisma.project.count({
-			where: {
-				status: ProjectStatus.FUNDING,
-			},
+			where: { status: ProjectStatus.FUNDING },
 		}),
 
 		prisma.project.count({
-			where: {
-				status: ProjectStatus.FUNDED,
-			},
+			where: { status: ProjectStatus.FUNDED },
 		}),
 
 		prisma.project.count({
-			where: {
-				status: ProjectStatus.IN_PROGRESS,
-			},
+			where: { status: ProjectStatus.IN_PROGRESS },
 		}),
 
 		prisma.project.count({
-			where: {
-				status: ProjectStatus.COMPLETED,
-			},
+			where: { status: ProjectStatus.COMPLETED },
 		}),
 
 		prisma.project.count({
-			where: {
-				status: ProjectStatus.CANCELLED,
-			},
+			where: { status: ProjectStatus.CANCELLED },
 		}),
 	]);
 
+	// SHARES
 	const totalSharesPurchased = totalShares._sum.numberOfShares ?? 0;
 
-	const totalInvestmentAmount = investmentAmount._sum.amount
-		? Number(investmentAmount._sum.amount)
-		: 0;
+	// PAYMENT AMOUNTS
+	const totalInvestmentAmount = Number(totalPaymentAmount._sum.amount ?? 0);
 
-	const totalVerifiedInvestmentAmount = verifiedInvestmentAmount._sum.amount
-		? Number(verifiedInvestmentAmount._sum.amount)
-		: 0;
+	const totalVerifiedInvestmentAmount = Number(
+		verifiedPaymentAmount._sum.amount ?? 0,
+	);
 
-	const totalProjectCost = projectCost._sum.totalCost
-		? Number(projectCost._sum.totalCost)
-		: 0;
+	// PROJECT AMOUNTS
+	const totalProjectCost = Number(projectCost._sum.totalCost ?? 0);
 
-	const totalProjectFundedAmount = projectFundedAmount._sum.fundedAmount
-		? Number(projectFundedAmount._sum.fundedAmount)
-		: 0;
+	const totalProjectFundedAmount = Number(
+		projectFundedAmount._sum.fundedAmount ?? 0,
+	);
 
 	const fundingPercentage =
 		totalProjectCost > 0
@@ -255,7 +201,6 @@ const getAdminAnalytics = async () => {
 
 		projects: {
 			total: totalProjects,
-
 			totalCost: totalProjectCost,
 			fundedAmount: totalProjectFundedAmount,
 			fundingPercentage,

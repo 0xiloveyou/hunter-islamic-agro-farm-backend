@@ -172,13 +172,8 @@ const getMyAppointment = async (userId: string) => {
 		},
 	});
 
-	if (!appointment) {
-		throw new AppError(httpStatus.NOT_FOUND, "No appointment found");
-	}
-
 	return appointment;
 };
-
 export const UserServices = {
 	uploadProfileImage,
 	applyAsShark,
